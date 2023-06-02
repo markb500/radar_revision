@@ -1,5 +1,5 @@
 
-var views = 0;
+var views = 0, sumq, suma;
 
 function eqnformat(id) {
   //re-runs mathjax rendering on text with given id. Used in all sum functions.
