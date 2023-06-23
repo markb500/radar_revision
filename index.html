@@ -34,12 +34,33 @@
   basiccwblk.src = "images/basiccwblk.png";
   var basicfmcwblk = new Image();
   basicfmcwblk.src = "images/basicfmcwblk.png";
+  var basicmopablk = new Image();
+  basicmopablk.src = "images/basicmopablk.png";
+  var superhetrxblk = new Image();
+  superhetrxblk.src = "images/superhetrxblk.png";
   var jetsclosing = new Image();
   jetsclosing.src = "images/jetsclosing.png";
   var jetsopening = new Image();
   jetsopening.src = "images/jetsopening.png";
+  var cavitysect = new Image();
+  cavitysect.src = "images/cavitysect.png";
+  var cavityfields = new Image();
+  cavityfields.src = "images/cavityfields.png";
+  var chokeflange = new Image();
+  chokeflange.src = "images/chokeflange.png";
+  var hpotxblk = new Image();
+  hpotxblk.src = "images/hpotxblk.png";
+  var ftcpulsesq = new Image();
+  ftcpulsesq.src = "images/ftcpulsesq.png";
+  var ftcpulsesa = new Image();
+  ftcpulsesa.src = "images/ftcpulsesa.png";
+  var famopablk = new Image();
+  famopablk.src = "images/famopablk.png";
 </script>
 <script src="basicradar_module.js"></script>
+<script src="microwaves_module.js"></script>
+<script src="txrx_module.js"></script>
+<script src="radtech_module.js"></script>
 <script src="utils_radar_module.js"></script>
 </head>
 <body>
@@ -87,17 +108,17 @@
             <button
                 id="microwaves" 
                 class="btn btn-outline-primary btn-block" 
-                onclick="sumshow('vectors', '0.5', '0.5', '0.5', '0.5', '0.5', '0.5'); eqnformat('q'); solutionwin()">Microwaves
+                onclick="sumshow('microwaves', '300', '500', '300', '500', '0.5', '0.5'); eqnformat('q'); solutionwin()">Microwave Techniques
             </button>
             <button
                 id="txrx" 
                 class="btn btn-outline-primary btn-block" 
-                onclick="sumshow('vectors', '0.5', '0.5', '0.5', '0.5', '0.5', '0.5'); eqnformat('q'); solutionwin()">Transmitters & Receivers
+                onclick="sumshow('txrx', '400', '600', '400', '600', '0.5', '0.5'); eqnformat('q'); solutionwin()">Transmitters & Receivers
             </button>
             <button
                 id="radartechniques" 
                 class="btn btn-outline-primary btn-block" 
-                onclick="sumshow('vectors', '0.5', '0.5', '0.5', '0.5', '0.5', '0.5'); eqnformat('q'); solutionwin()">Radar Techniques
+                onclick="sumshow('radtech', '400', '600', '400', '600', '0.5', '0.5'); eqnformat('q'); solutionwin()">Radar Techniques
             </button>
             <button
                 id="iffflir" 

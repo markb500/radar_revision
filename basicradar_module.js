@@ -15,7 +15,7 @@ function basicradar(ctx) {
             slantrange = (300 * txrxtime) / 2;
             sumq += "Calculate the slant range to a target, in km, as measured by a pulsed radar, given that the time interval between " + 
                     "pulse transmission and reception is " + txrxtime + "&nbsp;&#956s&nbsp;(" + txrxtime + "&nbsp;x&nbsp;10<sup>-6</sup>&nbsp;s) " + 
-                    "and the Speed of Light (c) is 300&nbsp;x&nbsp;10<sup>6</sup>&nbsp;m/s."
+                    "and the Speed of Light (c) is 300&nbsp;x&nbsp;10<sup>6</sup>&nbsp;m/s.";
             suma += "$$\\begin{aligned}slant\\ range &= \\frac{speed \\times time}{2}\\\\[5pt]";
             suma += "&= \\frac{300 \\times 10^6 \\times " + txrxtime + " \\times 10^{-6}}{2} \\\\[5pt]";
             suma += "&= \\frac{" + thouSep(slantrange * 2, "\\ ") + "}{2}\\\\[5pt]";
@@ -34,7 +34,7 @@ function basicradar(ctx) {
             break;
         case 3:
             notesLink = "";
-            sumq += "For Continuous Wave (CW) radar, <br>a.  What information does it provide? <br>b.  What principle does it use?"
+            sumq += "For Continuous Wave (CW) radar, <br>a.  What information does it provide? <br>b.  What principle does it use?";
             suma += "a.  Radial or relative velocity of a tgt. <br>b.  Doppler shift is measured.";
             break;
         case 4:
@@ -99,10 +99,10 @@ function basicradar(ctx) {
                 var vclosing = thouSep(vx + vy, "\\ ");
             } while (vx === vy);
             sumq += "Calculate the relative velocity of the two aircraft shown.";
-            suma += "<br><br><br>"
+            suma += "<br><br><br>";
             suma += "$$\\begin{aligned}relative\\ velocity &= v_x + v_y\\\\[5pt]";
             suma += "&=" + vx + "+" + vy + "\\\\[5pt]";
-            suma += "&=\\underline{\\mathbf{" + vclosing + "\\ kts}}\\end{aligned}$$"
+            suma += "&=\\underline{\\mathbf{" + vclosing + "\\ kts}}\\end{aligned}$$";
             ctx.drawImage(jetsclosing, 0, 0, 500, 100);
             ctx.font = "20px Comic Sans MS";
             ctx.textAlign = "center";
@@ -117,10 +117,10 @@ function basicradar(ctx) {
                 var vopening = thouSep(vy - vx, "\\ ");
             } while (vx === vy);
             sumq += "Calculate the relative velocity of the two aircraft shown.";
-            suma += "<br><br><br>"
+            suma += "<br><br><br>";
             suma += "$$\\begin{aligned}relative\\ velocity &= v_y - v_x\\\\[5pt]";
             suma += "&=" + vy + "-" + vx + "\\\\[5pt]";
-            suma += "&=\\underline{\\mathbf{" + vopening + "\\ kts}}\\end{aligned}$$"
+            suma += "&=\\underline{\\mathbf{" + vopening + "\\ kts}}\\end{aligned}$$";
             ctx.drawImage(jetsopening, 0, 0, 500, 100);
             ctx.font = "20px Comic Sans MS";
             ctx.textAlign = "center";
@@ -152,7 +152,8 @@ function basicradar(ctx) {
             break;
         case 18:
             notesLink = "";
-            sumq += "With reference to the Basic Frequency Modulated Continuous Wave (FMCW) Radar Block Diagram shown, briefly state the function of the Frequency Modulator.";
+            sumq += "With reference to the Basic Frequency Modulated Continuous Wave (FMCW) Radar Block Diagram shown, " + 
+                    "briefly state the function of the Frequency Modulator.";
             suma += "<br><br><br><br><br><br><br><br><br><br><br>";
             suma += "Produces a low frequency modulation signal for the CW Transmitter, which varies linearly over a fixed frequency range.";
             ctx.drawImage(basicfmcwblk, 0, 0, 500, 300);
@@ -232,17 +233,17 @@ function basicradar(ctx) {
             break;
         case 32:
             notesLink = "";
-            sumq += "List four external factors that affect radar performance."
+            sumq += "List four external factors that affect radar performance.";
             suma += "Clutter<br>External Noise<br>Atmospheric Attenuation<br>Target Characteristics";
             break;
         case 33:
             notesLink = "";
-            sumq += "Explain the term 'Clutter' as it applies to a pulsed radar."
+            sumq += "Explain the term 'Clutter' as it applies to a pulsed radar.";
             suma += "Clutter is echoes from unwanted objects/targets.";
             break;
         case 34:
             notesLink = "";
-            sumq += "List three characteristics of a target that affect radar performance."
+            sumq += "List three characteristics of a target that affect radar performance.";
             suma += "Any three from:<br>&nbsp;&nbsp;&nbsp;&nbsp;Material,<br>&nbsp;&nbsp;&nbsp;&nbsp;Size,<br>" + 
                     "&nbsp;&nbsp;&nbsp;&nbsp;Shape,<br>&nbsp;&nbsp;&nbsp;&nbsp;Distance from transmitter";
             break;
@@ -261,40 +262,40 @@ function basicradar(ctx) {
             break;
         case 36:
             notesLink = "";
-            sumq += "List four of the important internal (design) factors which can influence pulse radar performance"
+            sumq += "List four of the important internal (design) factors which can influence pulse radar performance";
             suma += "Any four from:<br>&nbsp;&nbsp;&nbsp;&nbsp;Tx peak power,<br>&nbsp;&nbsp;&nbsp;&nbsp;Receiver sensitivity and noise factor,<br>" + 
                     "&nbsp;&nbsp;&nbsp;&nbsp;Frequency,<br>&nbsp;&nbsp;&nbsp;&nbsp;Shape of radar beam and scanning method,<br>" + 
                     "&nbsp;&nbsp;&nbsp;&nbsp;PRF,<br>&nbsp;&nbsp;&nbsp;&nbsp;Pulse width";
             break;
         case 37:
             notesLink = "";
-            sumq += "List the four main factors governing the choice of transmitter frequency."
+            sumq += "List the four main factors governing the choice of transmitter frequency.";
             suma += "Size of target,<br>Beam Width,<br>Detection Range,<br>Size of aerials and waveguides";
             break;
         case 38:
             notesLink = "";
-            sumq += "List the four main factors governing the choice of PRF."
+            sumq += "List the four main factors governing the choice of PRF.";
             suma += "Maximum required range,<br>Aerial scanning speed,<br>Tx mean power,<br>Display definition";
             break;
         case 39:
             notesLink = "";
-            sumq += "Briefly explain the term '2nd time-around echoes'."
+            sumq += "Briefly explain the term '2nd time-around echoes'.";
             suma += "These are echoes from beyond the selected range (from earlier pulses) which appear as short-range targets, " + 
                     "causing ambiguous or confused range indications on the display.";
             break;
         case 40:
             notesLink = "";
-            sumq += "What change can be made to the radar scanning speed if the PRF is increased?"
+            sumq += "What change can be made to the radar scanning speed if the PRF is increased?";
             suma += "The scanning speed can also be increased.";
             break;
         case 41:
             notesLink = "";
-            sumq += "How can radar display definition be improved?"
+            sumq += "How can radar display definition be improved?";
             suma += "By increasing the PRF.";
             break;
         case 42:
             notesLink = "";
-            sumq += "To improve range discrimination and reduce the blind area (minimum range), how does the pulse width need to be changed?"
+            sumq += "To improve range discrimination and reduce the blind area (minimum range), how does the pulse width need to be changed?";
             suma += "Pulse width should be reduced.";
             break;
         case 43:

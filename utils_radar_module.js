@@ -214,15 +214,20 @@ function sumshow(sumType, h1, w1, h2, w2, h3, w3) {
       ctx = myCanvas.getContext('2d');
       sumData = basicradar(ctx);
       break;
-    case "momentcofg":
+    case "microwaves":
       ctx = myCanvas.getContext('2d');
-      sumData = momentcofg(ctx);
+      ctx2 = myCanvas2.getContext('2d');
+      sumData = microwaves(ctx, ctx2);
       break;
-    case "pressure":
-      sumData = pressure();
+    case "txrx":
+      ctx = myCanvas.getContext('2d');
+      ctx2 = myCanvas2.getContext('2d');
+      sumData = txrx(ctx, ctx2);
       break;
-    case "linmot":
-      sumData = linmot();
+    case "radtech":
+      ctx = myCanvas.getContext('2d');
+      ctx2 = myCanvas2.getContext('2d');
+      sumData = radtech(ctx, ctx2);
       break;
     case "angmot":
       sumData = angmot();
