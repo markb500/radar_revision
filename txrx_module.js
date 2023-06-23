@@ -126,12 +126,16 @@ function txrx(ctx, ctx2) {
     case 16:
       notesLink = "";
       sumq += "Explain what the Automatic Frequency Control (AFC) will do to the Local oscillator (LO) if the transmitter frequency drifts upwards by 50 KHz.";
+      suma += "<br><br><br><br><br><br><br><br>";
       suma += "The AFC causes the local oscillator frequency to increase by 50 KHz.";
+      ctx.drawImage(superhetrxblk, 0, 0, 500, 300);
       break;
     case 17:
       notesLink = "";
       sumq += "Explain what the Automatic Frequency Control (AFC) will do to the Local oscillator (LO) if the transmitter frequency drifts downwards by 20 KHz.";
+      suma += "<br><br><br><br><br><br><br><br>";
       suma += "The AFC causes the local oscillator frequency to decrease by 20 KHz.";
+      ctx.drawImage(superhetrxblk, 0, 0, 500, 300);
       break;
     case 18:
       notesLink = "";
