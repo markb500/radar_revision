@@ -229,8 +229,9 @@ function sumshow(sumType, h1, w1, h2, w2, h3, w3) {
       ctx2 = myCanvas2.getContext('2d');
       sumData = radtech(ctx, ctx2);
       break;
-    case "angmot":
-      sumData = angmot();
+    case "iffflir":
+      ctx = myCanvas.getContext('2d');
+      sumData = iffflir(ctx);
       break;
     case "machines":
       ctx2 = myCanvas2.getContext('2d');
@@ -451,4 +452,9 @@ function testshow() {
     }
   }
   eqnformat('t'); //Ensures MathJax has formatted all sums in test
+}
+
+function bgSelect() {
+  //Changes background colour inn response to selection on dropdown list
+  document.querySelector(':root').style.setProperty('--bgcolour', document.getElementById("colourSelect").value);
 }

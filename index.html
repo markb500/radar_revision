@@ -12,20 +12,36 @@
 </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
-  canvas {
-    position: absolute;
-    right: 0px;
-}
-  table {
-    margin-left: 75px;
-    margin-right: 75px;
-    margin-bottom: 30px;
-  }
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
+    :root {
+        --bgcolour: #ffffff;
+    }
+    #colourSelect { /*Border of dropdown*/
+        color: #24a0ed;
+        border: 1px solid #24a0ed;
+        border-radius: 4px;
+        background-color: transparent;
+    }
+    select:focus {  /*Prevent black box when dropdwon gets focus*/
+        border-color: #24a0ed;
+        outline:none;
+    }
+    body {
+        background-color: var(--bgcolour);
+    }
+    canvas {
+        position: absolute;
+        right: 0px;
+    }
+    table {
+        margin-left: 75px;
+        margin-right: 75px;
+        margin-bottom: 30px;
+    }
+    td, th {
+        border: 1px solid #64dcea;
+        text-align: left;
+        padding: 8px;
+    }
 </style>
 <script>
   var basicradblk = new Image();
@@ -61,10 +77,11 @@
 <script src="microwaves_module.js"></script>
 <script src="txrx_module.js"></script>
 <script src="radtech_module.js"></script>
+<script src="iffflir_module.js"></script>
 <script src="utils_radar_module.js"></script>
 </head>
 <body>
-<div class="py-3 jumbotron text-center" style="margin-bottom:0; background-image:url(images/typhoon_line.png); 
+<div class="py-3 jumbotron bg-transparent text-center" style="margin-bottom:0; background-image:url(images/typhoon_line.png); 
                 background-size:50%; background-repeat:no-repeat; background-position:right center">
     <img id="cosbadge" width="98" height="135" class="float-left" src="images/Cosbadge.png" alt="cosbadge">
     <h1><br>Radar Revision Questions<br><br></h1>
@@ -116,14 +133,14 @@
                 onclick="sumshow('txrx', '400', '600', '400', '600', '0.5', '0.5'); eqnformat('q'); solutionwin()">Transmitters & Receivers
             </button>
             <button
-                id="radartechniques" 
+                id="radtech" 
                 class="btn btn-outline-primary btn-block" 
                 onclick="sumshow('radtech', '400', '600', '400', '600', '0.5', '0.5'); eqnformat('q'); solutionwin()">Radar Techniques
             </button>
             <button
                 id="iffflir" 
                 class="btn btn-outline-primary btn-block" 
-                onclick="sumshow('vectors', '0.5', '0.5', '0.5', '0.5', '0.5', '0.5'); eqnformat('q'); solutionwin()">IFF/SSR & FLIR
+                onclick="sumshow('iffflir', '0.5', '0.5', '0.5', '0.5', '0.5', '0.5'); eqnformat('q'); solutionwin()">IFF/SSR & FLIR
             </button>
             <button
                 id="recce" 
@@ -146,6 +163,15 @@
                 class="btn btn-outline-primary mt-2">User Help
               </button>
             </a>
+            <div>
+            <p><br>Select background colour.</p>
+            <select id="colourSelect" onchange="bgSelect()">
+              <option value="#ffffff">White</option>
+              <option value="hsla(220,60%,70%,0.3)">Blue</option>
+              <option value="hsla(0,60%,70%,0.3)">Red</option>
+              <option value="hsla(120,60%,70%,0.3)">Green</option>
+            </select>
+            </div>
         </div>
         <div class="col-md-9">
             <h3 id="q"></h3>
