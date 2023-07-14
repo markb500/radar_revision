@@ -3,12 +3,11 @@ function recce(ctx, ctx2) {
   var sum, notesLink;
   sumq = "";
   suma = "";
-  // do {
-  //     sum = rndgen(1, 21, 0, 1, -1);
-  // } while(sum === prevsum || sum === prev2sum)
-  // prev2sum = prevsum;
-  // prevsum = sum;
-  sum = 11;
+  do {
+      sum = rndgen(1, 11, 0, 1, -1);
+  } while(sum === prevsum || sum === prev2sum)
+  prev2sum = prevsum;
+  prevsum = sum;
   switch(sum) {
     case 1:
       notesLink = "";
@@ -98,78 +97,6 @@ function recce(ctx, ctx2) {
               "Mechanical Safety - Safety distance of 5 m whenever power is applied<br>" +
               "Electrical Safety - Electrical power must be disconnected when removing LRUs<br>" +
               "Hazardous Materials - Various hazardous materials are used within the pod";
-      break;
-    case 12:
-      notesLink = "";
-      sumq += "Where in the aircraft's Radar Warning Receiver would you find information on different radar characteristics.";
-      suma += "The Threat Library";
-      break;
-    case 13:
-      notesLink = "";
-      sumq += "List two methods by which an infra-red homing missile could be decoyed away from an aircraft.";
-      suma += "Any two from:<br>Flares<br>Chaff<br>Towed decoy<br>Large Aircraft Infra-red Counter Measures (LAIRCM)";
-      break;
-    case 14:
-      notesLink = "";
-      sumq += "Briefly explain the purpose of flares dropped by an aircraft.";
-      suma += "To present a target to a missile which is more attractive than the aircraft.";
-      break;
-    case 15:
-      notesLink = "";
-      sumq += "The word LASER is an acronym for?";
-      suma += "LASER - <b>L</b>ight <b>A</b>mplification by <b>S</b>timulated <b>E</b>mission of <b>R</b>adiation";
-      break;
-    case 16:
-      notesLink = "";
-      sumq += "List two of the main characteristics of laser light.";
-      suma += "Any two from:<br>Monochromatic<br>Coherent<br>Intensely bright<br>Low divergence";
-      break;
-    case 17:
-      notesLink = "";
-      sumq += "Lasers are classified into safety classes. Which is the most powerful/dangerous class of laser, I or IV?";
-      suma += "Class IV.";
-      break;
-    case 18:
-      notesLink = "";
-      sumq += "A Large Aircraft Infra-red Counter Measures (LAIRCM) system is composed of 4 main functional parts. List 3 of these (not LRUs).";
-      suma += "Any three from:<br>" +
-              "- A high power, directional active infra-red jammer<br>" +
-              "- A stand-alone IR self-protection system with treat surveillance and warning, threat tracking, threat jamming and flare release control<br>" +
-              "- A narrow beam, directable IR transmitter that accepts threat handoff from an acquisition sensor such as Missile Warning Receiver System (MAWS) " +
-              "and provides closed loop tracking of the threat with a self-contained sensor<br>" +      
-              "- A series of multi-spectral flare packs";
-      break;
-    case 19:
-      notesLink = "";
-      sumq += "List 3 Large Aircraft Infra-red Counter Measures (LAIRCM) LRUs.";
-      suma += "Any three from:<br>" +
-              "A Signal Processor that controls the LAIRCM system operation<br>" +
-              "A number of Small Transmitter Laser Assemblies, dependent on the size of the host aircraft<br>" +
-              "A Control Indicator Unit (CIU) that allows the operator to initiate the system, carry out Built-in Test (BIT) and warn of missile detection<br>" +
-              "Missile Warning Sensors which are placed around the periphery of the aircraft, in locations that maximise detection view from below the aircraft";
-      break;
-    case 20:
-      notesLink = "";
-      sumq += "What are the four phases of the Large Aircraft Infra-red Counter Measures (LAIRCM) engagement sequence?";
-      suma += "Detect, Handoff, Track and Jam.";
-      break;
-    case 21:
-      notesLink = "";
-      sumq += "Briefly describe 4 common Large Aircraft Infra-red Counter Measures (LAIRCM) safety procedures.";
-      suma += "Any four from:<br>" +
-              "- Maintenance of LASER equipment is to be undertaken only by qualified and authorised personnel.<br>" + 
-
-              "- A safety cordon must be setup around the aircraft to ensure that no personnel, vehicles or aircraft are within the ocular " +
-              "hazard distance, warning signs must be displayed and if required a safety man posted.<br>" +
-              "- All personnel are wearing the appropriate protective clothing and eyewear.<br>" +
-              "- Prior to proceeding with testing, personnel within the cordon undertaking live LASER firing must use the issued PPE and safety goggles.<br>" +
-              "- Personnel working in surrounding areas are to receive LASER Safety Awareness training. The LASER Safety Officer (LSO) is to be aware of " +
-              "all authorised personnel.<br>" +
-              "- A member of the team (normally the Control Unit operator) informs ATC that a LASER firing is taking place and is to remain in contact for " +
-              "the duration of the firing. The Supervisor is to remain present throughout the duration of the firing and in constant 2-way radio contact with " +
-              "all team members.<br>" +
-              "- Any incident involving exposure or suspected exposure of a person to LASER radiation is to be reported immediately to the engineering and " +
-              "medical authorities. An eye injury will necessitate an immediate referral to a qualified ophthalmologist.";
       break;
   }
   
