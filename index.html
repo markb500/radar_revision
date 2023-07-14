@@ -72,12 +72,26 @@
   ftcpulsesa.src = "images/ftcpulsesa.png";
   var famopablk = new Image();
   famopablk.src = "images/famopablk.png";
+  var iffssrblk = new Image();
+  iffssrblk.src = "images/iffssrblk.png";
+  var iffssrmodesq = new Image();
+  iffssrmodesq.src = "images/iffssrmodesq.png";
+  var iffssrmodesa = new Image();
+  iffssrmodesa.src = "images/iffssrmodesa.png";
+  var flirblk = new Image();
+  flirblk.src = "images/flirblk.png";
+  var raptorimagetypesq = new Image();
+  raptorimagetypesq.src = "images/raptorimagetypesq.png";
+  var raptorimagetypesa = new Image();
+  raptorimagetypesa.src = "images/raptorimagetypesa.png";
 </script>
 <script src="basicradar_module.js"></script>
 <script src="microwaves_module.js"></script>
 <script src="txrx_module.js"></script>
 <script src="radtech_module.js"></script>
 <script src="iffflir_module.js"></script>
+<script src="recce_module.js"></script>
+<script src="ew_module.js"></script>
 <script src="utils_radar_module.js"></script>
 </head>
 <body>
@@ -140,17 +154,17 @@
             <button
                 id="iffflir" 
                 class="btn btn-outline-primary btn-block" 
-                onclick="sumshow('iffflir', '0.5', '0.5', '0.5', '0.5', '0.5', '0.5'); eqnformat('q'); solutionwin()">IFF/SSR & FLIR
+                onclick="sumshow('iffflir', '400', '600', '400', '600', '0.5', '0.5'); eqnformat('q'); solutionwin()">IFF/SSR & FLIR
             </button>
             <button
                 id="recce" 
                 class="btn btn-outline-primary btn-block" 
-                onclick="sumshow('vectors', '0.5', '0.5', '0.5', '0.5', '0.5', '0.5'); eqnformat('q'); solutionwin()">Aircraft Reconnaissance
+                onclick="sumshow('recce', '400', '600', '400', '600', '0.5', '0.5'); eqnformat('q'); solutionwin()">Aircraft Reconnaissance
             </button>
             <button
                 id="ew" 
                 class="btn btn-outline-primary btn-block" 
-                onclick="sumshow('vectors', '0.5', '0.5', '0.5', '0.5', '0.5', '0.5'); eqnformat('q'); solutionwin()">Electronic Warfare
+                onclick="sumshow('ew', '0.5', '0.5', '0.5', '0.5', '0.5', '0.5'); eqnformat('q'); solutionwin()">Electronic Warfare
             </button>
             <button
               id="testdesign" 

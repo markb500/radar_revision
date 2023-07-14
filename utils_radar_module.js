@@ -231,14 +231,16 @@ function sumshow(sumType, h1, w1, h2, w2, h3, w3) {
       break;
     case "iffflir":
       ctx = myCanvas.getContext('2d');
-      sumData = iffflir(ctx);
-      break;
-    case "machines":
       ctx2 = myCanvas2.getContext('2d');
-      sumData = machines(ctx2);
+      sumData = iffflir(ctx, ctx2);
       break;
-    case "energy":
-      sumData = energy();
+    case "recce":
+      ctx = myCanvas.getContext('2d');
+      ctx2 = myCanvas2.getContext('2d');
+      sumData = recce(ctx, ctx2);
+      break;
+    case "ew":
+      sumData = ew();
       break;
     case "friction":
       sumData = friction();
