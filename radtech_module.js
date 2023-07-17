@@ -4,7 +4,7 @@ function radtech(ctx) {
   sumq = "";
   suma = "";
   do {
-      sum = rndgen(1, 17, 0, 1, -1);
+      sum = rndgen(1, 28, 0, 1, -1);
   } while(sum === prevsum || sum === prev2sum)
   prev2sum = prevsum;
   prevsum = sum;
