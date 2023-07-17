@@ -3,14 +3,15 @@ function basicradar(ctx) {
     var notesLink, slantrange, sum, pp, pw, prf, mp, ps;
     sumq = "";
     suma = "";
-    do {
-        sum = rndgen(1, 31, 0, 1, -1);
-    } while(sum === prevsum || sum === prev2sum)
-    prev2sum = prevsum;
-    prevsum = sum;
+    // do {
+    //     sum = rndgen(1, 31, 0, 1, -1);
+    // } while(sum === prevsum || sum === prev2sum)
+    // prev2sum = prevsum;
+    // prevsum = sum;
+    sum = 1;
     switch(sum) {
         case 1:
-            notesLink = "";
+            notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=7";
             txrxtime = rndgen(100, 250, 0, 10, -1);
             slantrange = (300 * txrxtime) / 2;
             sumq += "Calculate the slant range to a target, in km, as measured by a pulsed radar, given that the time interval between " + 
