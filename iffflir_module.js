@@ -10,7 +10,7 @@ function iffflir(ctx, ctx2) {
   prevsum = sum;
   switch(sum) {
     case 1:
-      notesLink = "";
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=9";
       sumq += "In the IFF System shown below what is the purpose of the Transponder unit";
       suma += "<br><br><br><br><br><br><br><br><br><br><br><br>";
       suma += "The Transponder contains the main transmitter and receiver modules. The incoming interrogation pulses are decoded by the receiver " +
@@ -18,7 +18,7 @@ function iffflir(ctx, ctx2) {
       ctx.drawImage(iffssrblk, 0, 0, 600, 400);
       break;
     case 2:
-      notesLink = "";
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=9";
       sumq += "In the IFF System shown below what is the purpose of the Ejection Seat relay ";
       suma += "<br><br><br><br><br><br><br><br><br><br><br><br>";
       suma += "On aircraft fitted with ejection seats, when an ejection occurs an electrical connection on the seat is disconnected which " +
@@ -26,40 +26,40 @@ function iffflir(ctx, ctx2) {
       ctx.drawImage(iffssrblk, 0, 0, 600, 400);
       break;
     case 3:
-      notesLink = "";
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=9";
       sumq += "In the IFF System shown below what information does the Air data computer provide and for which mode.";
       suma += "<br><br><br><br><br><br><br><br><br><br><br><br>";
       suma += "The Air Data Computer supplies height information for Altitude Mode C.";
       ctx.drawImage(iffssrblk, 0, 0, 600, 400);
       break;
     case 4:
-      notesLink = "";
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=7";
       sumq += "Fill in the blanks in the Modes of Interrogation table below."
       ctx.drawImage(iffssrmodesq, 0, 0, 600, 400);
       ctx2.drawImage(iffssrmodesa, 0, 0, 600, 400);
       break;
     case 5:
-      notesLink = "";
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=8";
       sumq += "What Air Traffic system is a mode S transponder used with?";
       suma += "The Traffic Collision Avoidance System (TCAS).";
       break;
     case 6:
-      notesLink = "";
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=14";
       sumq += "Which region of the infra-red frequency band is used for Thermal Imaging?";
       suma += "The mid to far IR region (8 - 14 &mu;m)";
       break;
     case 7:
-      notesLink = "";
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=14";
       sumq += "Above what temperature do objects emit infra-red (IR) radiation?";
       suma += "Above absolute zero (-273.15 &deg;C or 0 K), objects will emit infra-red (IR) radiation.";
       break;
     case 8:
-      notesLink = "";
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=14";
       sumq += "What happens to the frequency and wavelength of emitted infra-red radiation as objects get hotter?";
       suma += "The frequency increases and the wavelength decreases.";
       break;
     case 9:
-      notesLink = "";
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=18";
       sumq += "State two advantages of IR thermal imaging systems."
       suma += "Any two from:<br>" +
               "Passive and undetectable in use (everything emits IR radiation)<br>" +
@@ -67,7 +67,7 @@ function iffflir(ctx, ctx2) {
               "Not easily deceived by camouflage. ";
       break;
     case 10:
-      notesLink = "";
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=18";
       sumq += "State two disadvantages of IR thermal imaging systems.";
       suma += "Any two from:<br>" +
               "- Atmospheric Attenuation (absorbs and scatters IR wave lengths)<br>" +
@@ -77,7 +77,7 @@ function iffflir(ctx, ctx2) {
               "must be taken when handling these"
       break;
     case 11:
-      notesLink = "";
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=16";
       sumq += "In the Forward Looking Infra-Red (FLIR) system shown, briefly state the function of:<br>" +
               "a. The Shutter & Window Assembly.<br>" +
               "b. The FLIR Electronics Unit.<br>" +
@@ -100,7 +100,7 @@ function iffflir(ctx, ctx2) {
       ctx.drawImage(flirblk, 0, 0, 600, 400);
       break;
     case 12:
-      notesLink = "";
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=16";
       sumq += "Explain why ordinary glass cannot be used for infra-red lenses.";
       suma += "Ordinary/conventional glass is opaque to IR wavelengths greater than 3 &mu;m, so special materials must used for lenses and windows.";
       break;
