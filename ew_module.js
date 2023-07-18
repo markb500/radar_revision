@@ -10,94 +10,94 @@ function ew() {
   prevsum = sum;
   switch(sum) {
     case 1:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=5";
       sumq += "Define the term “Electronic Warfare”.";
       suma += "The military use of electronics involving actions taken to prevent or reduce an enemy's effective use of radiated " +
               "electromagnetic energy and actions taken to ensure our own effective use of radiated electromagnetic energy.";
       break;
     case 2:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=6";
       sumq += "Define the term “Electronic Counter Measures”.";
       suma += "It is that part of Electronic Warfare involving actions taken to prevent or reduce an enemy's effective use of the electromagnetic spectrum.";
       break;
     case 3:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=14";
       sumq += "In Electronic Counter Measures (ECM), what is meant by Confusion Jamming?";
       suma += "Jamming which produces spurious returns on an enemy radar display so that detection and interpretation of real returns becomes impossible.";
       break;
     case 4:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=16";
       sumq += "List two examples of Electronic Counter Measures confusion (noise) jamming techniques.";
       suma += "Any two from:<br>Spot Jamming<br>Sweep Jamming<br>Barrage Jamming<br>Multi-purpose Jamming.";
       break;
     case 5:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=14";
       sumq += "In Electronic Counter Measures, what is meant by Deception Jamming?";
       suma += "It is that type of jamming which is intended to make the enemy operator mistake a false target for a real one or to " +
               "misinterpret the intentions of his opponent.";
       break;
     case 6:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=17";
       sumq += "List two examples of Electronic Counter Measures deception jamming techniques.";
       suma += "Any two from:<br>False target generation<br>Angle deception<br>Range-gate stealing<br>Velocity-gate stealing<br>Noise modulated deception";
       break;
     case 7:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=11";
       sumq += "List two examples of non-electronic counter measures.";
       suma += "Any two from:<br>Airborne decoys<br>Chaff<br>Stealth techniques.";
       break;
     case 8:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=12";
       sumq += "Identify three design features that help to make an aircraft stealthy.";
       suma += "Shape of aircraft fuselage<br>Radar absorbent material<br>Radar transparent material";
       break;
     case 9:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=6";
       sumq += "Define the term Electronic Defence (ED)."
       suma += "That part of Electronic Warfare involving actions taken to ensure our effective use of the electromagnetic spectrum despite the enemy's use of ECM.";
       break;
     case 10:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=7";
       sumq += "State the three main categories of Electronic Support Measures (ESM).";
       suma += "Signal Intelligence Gathering (SIGINT)<br>Electronic Intelligence Gathering (ELINT)<br>Threat warning (RWR)."
       break;
     case 11:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=8";
       sumq += "State how an aircraft's Radar Warning Receiver (RWR) can be used within Electronic Support Measures (ESM)";
       suma += "When an aircraft is being illuminated by enemy radar it can detect what type of radar is being used.";
       break;
     case 12:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=10";
       sumq += "Where in the aircraft's Radar Warning Receiver would you find information on different radar characteristics.";
       suma += "The Threat Library";
       break;
     case 13:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=11";
       sumq += "List two methods by which an infra-red homing missile could be decoyed away from an aircraft.";
       suma += "Any two from:<br>Flares<br>Chaff<br>Towed decoy<br>Large Aircraft Infra-red Counter Measures (LAIRCM)";
       break;
     case 14:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=13";
       sumq += "Briefly explain the purpose of flares dropped by an aircraft.";
       suma += "To present a target to a missile which is more attractive than the aircraft.";
       break;
     case 15:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=18";
       sumq += "The word LASER is an acronym for?";
       suma += "LASER - <b>L</b>ight <b>A</b>mplification by <b>S</b>timulated <b>E</b>mission of <b>R</b>adiation";
       break;
     case 16:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=18";
       sumq += "List two of the main characteristics of laser light.";
       suma += "Any two from:<br>Monochromatic<br>Coherent<br>Intensely bright<br>Low divergence";
       break;
     case 17:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=19";
       sumq += "Lasers are classified into safety classes. Which is the most powerful/dangerous class of laser, I or IV?";
       suma += "Class IV.";
       break;
     case 18:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=21";
       sumq += "A Large Aircraft Infra-red Counter Measures (LAIRCM) system is composed of 4 main functional parts. List 3 of these (not LRUs).";
       suma += "Any three from:<br>" +
               "- A high power, directional active infra-red jammer<br>" +
@@ -107,7 +107,7 @@ function ew() {
               "- A series of multi-spectral flare packs";
       break;
     case 19:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=21";
       sumq += "List 3 Large Aircraft Infra-red Counter Measures (LAIRCM) LRUs.";
       suma += "Any three from:<br>" +
               "A Signal Processor that controls the LAIRCM system operation<br>" +
@@ -116,12 +116,12 @@ function ew() {
               "Missile Warning Sensors which are placed around the periphery of the aircraft, in locations that maximise detection view from below the aircraft";
       break;
     case 20:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=21";
       sumq += "What are the four phases of the Large Aircraft Infra-red Counter Measures (LAIRCM) engagement sequence?";
       suma += "Detect, Handoff, Track and Jam.";
       break;
     case 21:
-      notesLink = "";
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=22";
       sumq += "Briefly describe 4 common Large Aircraft Infra-red Counter Measures (LAIRCM) safety procedures.";
       suma += "Any four from:<br>" +
               "- Maintenance of LASER equipment is to be undertaken only by qualified and authorised personnel.<br>" + 
