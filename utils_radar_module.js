@@ -270,48 +270,71 @@ function sumshow(sumType, h1, w1, h2, w2, h3, w3) {
 function testsumshow(sumType, qnum) {
   //Called by sumAuth, used in test creation. Gets required sum and sets up canvas if required.
   switch (sumType) {
-    case "vectors":
+    case "basicradar":
       document.getElementById('myCanvasq' + qnum).style.visibility = 'visible';
-      document.getElementById('myCanvasq' + qnum).height = '650';
-      document.getElementById('myCanvasq' + qnum).width = '550';
+      document.getElementById('myCanvasq' + qnum).height = '300';
+      document.getElementById('myCanvasq' + qnum).width = '500';
       ctx = document.getElementById('myCanvasq' + qnum).getContext('2d');
-      document.getElementById('myCanvasqa' + qnum).style.visibility = 'visible';
-      document.getElementById('myCanvasqa' + qnum).height = '1300';
-      document.getElementById('myCanvasqa' + qnum).width = '550';
-      ctx2 = document.getElementById('myCanvasqa' + qnum).getContext('2d');
-      sumData = vectors(ctx, ctx2);
-      ctx2.drawImage(document.getElementById('myCanvasq' + qnum), 0, 0);
+      sumData = basicradar(ctx);
       break;
-    case "momentcofg":
+    case "microwaves":
       document.getElementById('myCanvasq' + qnum).style.visibility = 'visible';
-      document.getElementById('myCanvasq' + qnum).height = '315';
-      document.getElementById('myCanvasq' + qnum).width = '625';
+      document.getElementById('myCanvasq' + qnum).height = '300';
+      document.getElementById('myCanvasq' + qnum).width = '500';
       ctx = document.getElementById('myCanvasq' + qnum).getContext('2d');
       document.getElementById('myCanvasqa' + qnum).style.visibility = 'visible';
-      document.getElementById('myCanvasqa' + qnum).height = '315';
-      document.getElementById('myCanvasqa' + qnum).width = '625';
+      document.getElementById('myCanvasqa' + qnum).height = '300';
+      document.getElementById('myCanvasqa' + qnum).width = '500';
       ctx2 = document.getElementById('myCanvasqa' + qnum).getContext('2d');
-      sumData = momentcofg(ctx);
+      sumData = microwaves(ctx, ctx2);
       sumData[1] = sumData[1].replace("<br>".repeat(8), "");     //Removes lead in <br>'s from solution
       ctx2.drawImage(document.getElementById('myCanvasq' + qnum), 0, 0);
       break;
-    case "pressure":
-      sumData = pressure();
+    case "txrx":
+      document.getElementById('myCanvasq' + qnum).style.visibility = 'visible';
+      document.getElementById('myCanvasq' + qnum).height = '400';
+      document.getElementById('myCanvasq' + qnum).width = '600';
+      ctx = document.getElementById('myCanvasq' + qnum).getContext('2d');
+      document.getElementById('myCanvasqa' + qnum).style.visibility = 'visible';
+      document.getElementById('myCanvasqa' + qnum).height = '400';
+      document.getElementById('myCanvasqa' + qnum).width = '600';
+      ctx2 = document.getElementById('myCanvasqa' + qnum).getContext('2d');
+      sumData = txrx(ctx, ctx2);
+      ctx2.drawImage(document.getElementById('myCanvasq' + qnum), 0, 0);
       break;
-    case "linmot":
-      sumData = linmot();
+    case "radtech":
+      document.getElementById('myCanvasq' + qnum).style.visibility = 'visible';
+      document.getElementById('myCanvasq' + qnum).height = '400';
+      document.getElementById('myCanvasq' + qnum).width = '600';
+      ctx = document.getElementById('myCanvasq' + qnum).getContext('2d');
+      sumData = radtech(ctx);
       break;
-    case "angmot":
-      sumData = angmot();
+    case "iffflir":
+      document.getElementById('myCanvasq' + qnum).style.visibility = 'visible';
+      document.getElementById('myCanvasq' + qnum).height = '400';
+      document.getElementById('myCanvasq' + qnum).width = '600';
+      ctx = document.getElementById('myCanvasq' + qnum).getContext('2d');
+      document.getElementById('myCanvasqa' + qnum).style.visibility = 'visible';
+      document.getElementById('myCanvasqa' + qnum).height = '400';
+      document.getElementById('myCanvasqa' + qnum).width = '600';
+      ctx2 = document.getElementById('myCanvasqa' + qnum).getContext('2d');
+      sumData = iffflir(ctx, ctx2);
+      ctx2.drawImage(document.getElementById('myCanvasq' + qnum), 0, 0);
       break;
-    case "machines":
-      sumData = machines();
+    case "recce":
+      document.getElementById('myCanvasq' + qnum).style.visibility = 'visible';
+      document.getElementById('myCanvasq' + qnum).height = '400';
+      document.getElementById('myCanvasq' + qnum).width = '600';
+      ctx = document.getElementById('myCanvasq' + qnum).getContext('2d');
+      document.getElementById('myCanvasqa' + qnum).style.visibility = 'visible';
+      document.getElementById('myCanvasqa' + qnum).height = '400';
+      document.getElementById('myCanvasqa' + qnum).width = '600';
+      ctx2 = document.getElementById('myCanvasqa' + qnum).getContext('2d');
+      sumData = recce(ctx, ctx2);
+      ctx2.drawImage(document.getElementById('myCanvasq' + qnum), 0, 0);
       break;
-    case "energy":
-      sumData = energy();
-      break;
-    case "friction":
-      sumData = friction();
+    case "ew":
+      sumData = ew();
       break;
   }
 }
@@ -419,36 +442,32 @@ function testshow() {
   document.body.appendChild(adiv);
   for (var i = 0; i < testOrder.length; i++) {
     switch (testOrder[i]) {
-      case "Vectors":
-        sumAuth('vectors', qnum);
+      case "Basic Radar":
+        sumAuth('basicradar', qnum);
         qnum = qnum + 1;
         break;
-      case "Moments &amp; C of G":
-        sumAuth('momentcofg', qnum);
+      case "Microwave Techniques":
+        sumAuth('microwaves', qnum);
         qnum = qnum + 1;
         break;
-      case "Pressure":
-        sumAuth('pressure', qnum);
+      case "Transmitters &amp; Receivers":
+        sumAuth('txrx', qnum);
         qnum = qnum + 1;
         break;
-      case "Linear Motion":
-        sumAuth('linmot', qnum);
+      case "Radar Techniques":
+        sumAuth('radtech', qnum);
         qnum = qnum + 1;
         break;
-      case "Angular Motion":
-        sumAuth('angmot', qnum);
+      case "IFF/SSR &amp; FLIR":
+        sumAuth('iffflir', qnum);
         qnum = qnum + 1;
         break;
-      case "Machines":
-        sumAuth('machines', qnum);
+      case "Aircraft Reconnaissance":
+        sumAuth('recce', qnum);
         qnum = qnum + 1;
         break;
-      case "Energy &amp; Power":
-        sumAuth('energy', qnum);
-        qnum = qnum + 1;
-        break;
-      case "Friction":
-        sumAuth('friction', qnum);
+      case "Electronic Warfare":
+        sumAuth('ew', qnum);
         qnum = qnum + 1;
         break;
     }
