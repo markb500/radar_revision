@@ -123,7 +123,7 @@ function microwaves(ctx, ctx2) {
             break;
         case 17:
             notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=25";
-            sumq += "What is a active array?";
+            sumq += "What is an active array?";
             suma += "It is an array of miniature transmitter/receiver units fixed directly to the front of the dish, " + 
                     "which are individually controlled by the radar systems computer.";
             break;
