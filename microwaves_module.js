@@ -1,13 +1,10 @@
-var prevsum = 0, prev2sum = 0;
+var sumarr = [], sumq, suma;
 function microwaves(ctx, ctx2) {
     var sum, notesLink;
     sumq = "";
     suma = "";
-    do {
-        sum = rndgen(1, 17, 0, 1, -1);
-    } while(sum === prevsum || sum === prev2sum)
-    prev2sum = prevsum;
-    prevsum = sum;
+    sumarr = QLimitRepeats(sumarr, 17);
+    sum = sumarr[sumarr.length - 1];
     switch(sum) {
         case 1:
             notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=6";

@@ -198,7 +198,30 @@ function arrhead(c, ptx, pty, ang, linewidth, linecolour) {
     c.stroke();
 }
 
-function sumshow(sumType, h1, w1, h2, w2, h3, w3) {
+function removeLeadbr(txt) {
+  // Removes leading <br>'s from solutions.
+  // <br>'s used to place solutions after images but not needed on solnWin
+  while (txt.indexOf("<br>") === 0) {
+    txt = txt.replace("<br>", "");
+  }
+  return txt;
+}
+
+function QLimitRepeats(arr, x) {
+  //Ensures no repeat question until at least 50% of questions in calling module have been shown.
+  //'arr' stores previous questions for calling module. 'x' is the number of questions in the calling module.
+  var sum;
+  do {
+    sum = rndgen(1, x, 0, 1, -1);
+  } while (arr.includes(sum))
+  arr.push(sum);
+  if (arr.length > Math.ceil(x/2)) {
+    arr.shift();
+  }
+  return arr;
+}
+
+function sumshow(sumType, h1, w1, h2, w2) {
   //Called by btn click in Index. Gets required sum data and sets up canvas if required.
   document.getElementById("myCanvas");
   myCanvas.height = h1;
@@ -249,13 +272,15 @@ function sumshow(sumType, h1, w1, h2, w2, h3, w3) {
   if (SolnWin) {      //Prior to 1st open of SolnWin, the .closed test is null
     if (!SolnWin.closed) {  //Once SolnWin has been opened, SolnWin is true whether open or closed so need this extra test
       SolnWin.document.getElementById("myCanvas3");
-      SolnWin.myCanvas3.height = h3;
-      SolnWin.myCanvas3.width = w3;
-      if (h3 > 0.5) { //Otherwise, assume no solution image so myCanvas2 not defined
+      if (h2 > 0.5) { //Otherwise, assume no solution image so myCanvas2 not defined
+        SolnWin.myCanvas3.height = h2;
+        SolnWin.myCanvas3.width = w2;
         var ctx3 = SolnWin.myCanvas3.getContext('2d');
         ctx3.drawImage(myCanvas2, 0, 0);
       }
-      var suma2 = sumData[1].replace("<br>".repeat(12), "");  //Removes leading spaces in 'hcf/lcm' solution
+      // var suma2 = sumData[1].replace("<br>".repeat(12), "");  //Removes leading spaces in 'hcf/lcm' solution
+      var suma2 = removeLeadbr(sumData[1]);
+      alert(sumData[1] + " " + suma2);
       SolnWin.document.getElementById('a2').innerHTML = suma2;
       SolnWin.eqnformat('a2');
     }
@@ -476,6 +501,6 @@ function testshow() {
 }
 
 function bgSelect() {
-  //Changes background colour inn response to selection on dropdown list
+  //Changes background colour in response to selection on dropdown list
   document.querySelector(':root').style.setProperty('--bgcolour', document.getElementById("colourSelect").value);
 }

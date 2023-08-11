@@ -1,13 +1,10 @@
-var prevsum = 0, prev2sum = 0;
+var sumarr = [], sumq, suma;
 function basicradar(ctx) {
     var notesLink, slantrange, sum, pp, pw, prf, mp, ps;
     sumq = "";
     suma = "";
-    do {
-        sum = rndgen(1, 31, 0, 1, -1);
-    } while(sum === prevsum || sum === prev2sum)
-    prev2sum = prevsum;
-    prevsum = sum;
+    sumarr = QLimitRepeats(sumarr, 31);   //Ensures no repeat question until at least 50% of questions shown
+    sum = sumarr[sumarr.length - 1];
     switch(sum) {
         case 1:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=7";
@@ -15,7 +12,7 @@ function basicradar(ctx) {
             slantrange = (300 * txrxtime) / 2;
             sumq += "Calculate the slant range to a target, in km, as measured by a pulsed radar, given that the time interval between " + 
                     "pulse transmission and reception is " + txrxtime + "&nbsp;&#956s&nbsp;(" + txrxtime + "&nbsp;x&nbsp;10<sup>-6</sup>&nbsp;s) " + 
-                    "and the Speed of Light (c) is 300&nbsp;x&nbsp;10<sup>6</sup>&nbsp;m/s.";
+                    "and the Speed of Light (c) is 300&nbsp;x&nbsp;10<sup>6</sup>&nbsp;m/s."
             suma += "$$\\begin{aligned}slant\\ range &= \\frac{speed \\times time}{2}\\\\[5pt]";
             suma += "&= \\frac{300 \\times 10^6 \\times " + txrxtime + " \\times 10^{-6}}{2} \\\\[5pt]";
             suma += "&= \\frac{" + thouSep(slantrange * 2, "\\ ") + "}{2}\\\\[5pt]";

@@ -1,13 +1,10 @@
-var prevsum = 0, prev2sum = 0;
+var sumarr = [], sumq, suma;
 function txrx(ctx, ctx2) {
   var sum, notesLink, sect, L, C, Z, PW;
   sumq = "";
   suma = "";
-  do {
-      sum = rndgen(1, 21, 0, 1, -1);
-  } while(sum === prevsum || sum === prev2sum)
-  prev2sum = prevsum;
-  prevsum = sum;
+  sumarr = QLimitRepeats(sumarr, 21);
+  sum = sumarr[sumarr.length - 1];
   switch(sum) {
     case 1:
       notesLink = "images/20200422-RadarBk3TxRx_v1_3-APO.pdf#page=6";
