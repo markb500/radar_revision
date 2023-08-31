@@ -3,7 +3,7 @@ function microwaves(ctx, ctx2) {
     var sum, notesLink;
     sumq = "";
     suma = "";
-    sumarr = QLimitRepeats(sumarr, 17);
+    sumarr = QLimitRepeats(sumarr, 20);
     sum = sumarr[sumarr.length - 1];
     switch(sum) {
         case 1:
@@ -97,7 +97,7 @@ function microwaves(ctx, ctx2) {
         case 13:
             notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=21";
             sumq += "For a Pencil beam:<br>a. What type of Radar would use this beam shape?<br>b. What are its characteristics in azimuth & elevation?";
-            suma += "a. Airborne Intercept (AI), Terrain Following Radar (TFR) or Tracking Radar.<br>b. Narrow in azimuth, narrow in elevation.";
+            suma += "a. Airborne Intercept (AI), Terrain Following Radar (TFR) or Weather Radar.<br>b. Narrow in azimuth, narrow in elevation.";
             break;
         case 14:
             notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=21";
@@ -111,7 +111,7 @@ function microwaves(ctx, ctx2) {
         case 15:
             notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=23";
             sumq += "What is a parabolic reflector?";
-            suma += "It is a curved, bowl-shaped, aerial which produces a pencil beam";
+            suma += "It is a curved, bowl-shaped, aerial which produces a pencil beam.";
             break;
         case 16:
             notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=23";
@@ -123,6 +123,23 @@ function microwaves(ctx, ctx2) {
             sumq += "What is an active array?";
             suma += "It is an array of miniature transmitter/receiver units fixed directly to the front of the dish, " + 
                     "which are individually controlled by the radar systems computer.";
+            break;
+        case 18:
+            notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=13";
+            sumq += "What is used to propagate microwave energy from the radar transmitter to the aerial and from the aerial to the receiver?";
+            suma += "Waveguide.";
+            break;
+        case 19:
+            notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=10";
+            sumq += "State 1 characteristic of a Travelling Wave Tube.";
+            suma += "Any one from:<br>- Wide bandwidth<br>- Broad frequency range<br>" +
+                        "- Power output from a few mW to 10's kW (pulsed) or 1 kW (continuous wave)<br>- Low noise";
+            break;
+        case 20:
+            notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=10";
+            sumq += "State 1 characteristic of a Cavity Magnetron.";
+            suma += "Any one from:<br>- Narrow bandwidth<br>- Limited frequency range<br>" +
+                        "- Power o/p from a few Watts up to MW (pulsed) or 10's W (continuous wave)<br>- High noise";
             break;
     }
     
