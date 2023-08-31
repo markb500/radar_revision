@@ -139,7 +139,7 @@ function microwaves(ctx, ctx2) {
             notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=9";
             sumq += "State 1 characteristic of a Cavity Magnetron.";
             suma += "Any one from:<br>- Narrow bandwidth<br>- Limited frequency range<br>" +
-                        "- Power o/p from a few Watts up to MW (pulsed) or 10's W (continuous wave)<br>- High noise";
+                        "- Power o/p from a few Watts up to MW (pulsed) or 10's W (continuous wave)<br>- High noise<br>- Requires cooling";
             break;
     }
     
