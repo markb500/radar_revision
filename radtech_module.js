@@ -3,7 +3,7 @@ function radtech(ctx) {
   var sum, notesLink;
   sumq = "";
   suma = "";
-  sumarr = QLimitRepeats(sumarr, 28);
+  sumarr = QLimitRepeats(sumarr, 32);
   sum = sumarr[sumarr.length - 1];
   switch(sum) {
     case 1:
@@ -161,6 +161,37 @@ function radtech(ctx) {
       notesLink = "images/20200422-RadarBook4RadTechv1_2-APO.pdf#page=37";
       sumq += "What makes Inverse Synthetic Aperture Radar (ISAR) particularly useful in identifying ships or other floating structures during maritime surveillance?";
       suma += "The movement in the sea enhances the processing.";
+      break;
+    case 29:
+      notesLink = "images/20200422-RadarBook4RadTechv1_2-APO.pdf#page=26";
+      sumq += "With reference to the Basic Pulsed Doppler Radar Block Diagram shown, state the functions of the MTU/Exciter.";
+      suma += "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+      suma += "- Sets the PRF and triggers the transmitter<br>- Provides a stable local oscillator (STALO) frequency to the Mixer<br>" + 
+                "- Receives control signals from the Radar Data Processor.";
+      ctx.drawImage(basicpulsedopblk, 0, 0, 600, 400);
+      break;
+    case 30:
+      notesLink = "images/20200422-RadarBook4RadTechv1_2-APO.pdf#page=26";
+      sumq += "With reference to the Basic Pulsed Doppler Radar Block Diagram shown, what type of transmitter would normally be used in this system?";
+      suma += "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+      suma += "A Master Oscillator Power Amplifier (MOPA) transmitter.";
+      ctx.drawImage(basicpulsedopblk, 0, 0, 600, 400);
+      break;
+    case 31:
+      notesLink = "images/20200422-RadarBook4RadTechv1_2-APO.pdf#page=26";
+      sumq += "With reference to the Basic Pulsed Doppler Radar Block Diagram shown, state the function of the Signal Processor.";
+      suma += "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+      suma += "A digital signal processor undertaking filtering and data manipulation and processing of the received pulses together with " +
+              "their 'Doppler' shift signal into a suitable format for display or use by the Radar Data Processor.";
+      ctx.drawImage(basicpulsedopblk, 0, 0, 600, 400);
+      break;
+    case 32:
+      notesLink = "images/20200422-RadarBook4RadTechv1_2-APO.pdf#page=26";
+      sumq += "With reference to the Basic Pulsed Doppler Radar Block Diagram shown, state the function of the Radar Data Processor.";
+      suma += "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+      suma += "The Radar Data Processor performs the control functions for the Radar, interacts with the aircraft data architecture for use " +
+              "with other systems and sensors and controls the antenna/beam position.";
+      ctx.drawImage(basicpulsedopblk, 0, 0, 600, 400);
       break;
   }
   
