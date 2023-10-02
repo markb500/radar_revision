@@ -263,7 +263,8 @@ function sumshow(sumType, h1, w1, h2, w2) {
       sumData = recce(ctx, ctx2);
       break;
     case "ew":
-      sumData = ew();
+      ctx = myCanvas.getContext('2d');
+      sumData = ew(ctx);
       break;
     case "friction":
       sumData = friction();
@@ -280,7 +281,6 @@ function sumshow(sumType, h1, w1, h2, w2) {
       }
       // var suma2 = sumData[1].replace("<br>".repeat(12), "");  //Removes leading spaces in 'hcf/lcm' solution
       var suma2 = removeLeadbr(sumData[1]);
-      alert(sumData[1] + " " + suma2);
       SolnWin.document.getElementById('a2').innerHTML = suma2;
       SolnWin.eqnformat('a2');
     }
@@ -359,7 +359,11 @@ function testsumshow(sumType, qnum) {
       ctx2.drawImage(document.getElementById('myCanvasq' + qnum), 0, 0);
       break;
     case "ew":
-      sumData = ew();
+      document.getElementById('myCanvasq' + qnum).style.visibility = 'visible';
+      document.getElementById('myCanvasq' + qnum).height = '400';
+      document.getElementById('myCanvasq' + qnum).width = '600';
+      ctx = document.getElementById('myCanvasq' + qnum).getContext('2d');
+      sumData = ew(ctx);
       break;
   }
 }

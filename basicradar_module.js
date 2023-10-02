@@ -188,7 +188,7 @@ function basicradar(ctx) {
             break;
         case 24:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=13";
-            sumq += "Explain what is meant by the term Secondary radar system";
+            sumq += "Explain what is meant by the term Secondary radar system.";
             suma += "A system which relies on the co-operation of the target.";
             break;
         case 25:
@@ -211,12 +211,12 @@ function basicradar(ctx) {
         case 28:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=14";
             sumq += "List two examples of target information that can be determined by a primary pulsed radar system.";
-            suma += "Any two from: bearing, elevation, range";
+            suma += "Any two from: bearing, elevation, range.";
             break;
         case 29:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=14";
             sumq += "What target information can be determined by a continuous wave (CW) primary radar system?";
-            suma += "Radial or relative velocity";
+            suma += "Radial or relative velocity.";
             break;
         case 30:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=14";
@@ -225,7 +225,7 @@ function basicradar(ctx) {
             break;
         case 31:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=6";
-            sumq += "How do basic radar systems determine the azimuth (or bearing) and elevation of a target? ";
+            sumq += "How do basic radar systems determine the azimuth (or bearing) and elevation of a target?";
             suma += "By using the angular position of the radar beam/scanner.";
             break;
         case 32:
@@ -249,7 +249,7 @@ function basicradar(ctx) {
             slantrange = rndgen(120, 180, 1, 10, -1);
             ps = dp(slantrange * 6.7, 1, -1);
             prf = dp(1 / (PS * Math.pow(10, -6)), 1, -1);
-            sumq += "Calculate the Pulse Repetition Frequency (PRF) required to give a radar system a maximum range of " + slantrange + " Km."
+            sumq += "Calculate the Pulse Repetition Frequency (PRF) required to give a radar system a maximum range of " + slantrange + " Km.";
             suma += "$$\\begin{aligned}slant \\ range &= \\frac{Tx/Rx\\ time}{6.7\\times 10^{-6}}\\\\[5pt]";
             suma += "slant\\ range\\times 6.7\\times 10^{-6}&=Tx/Rx\\ time\\\\[5pt]";
             suma += slantrange + "\\times 6.7\\times 10^{-6}&=" + thouSep(ps, '\\ ') + "\\times 10^{-6}\\\\[5pt]";
