@@ -1,10 +1,10 @@
-var sumarr = [], sumq, suma;
+var sumarrmicrowaves = [], sumq, suma;
 function microwaves(ctx, ctx2) {
     var sum, notesLink;
     sumq = "";
     suma = "";
-    sumarr = QLimitRepeats(sumarr, 20);
-    sum = sumarr[sumarr.length - 1];
+    sumarrmicrowaves = QLimitRepeats(sumarrmicrowaves, 20);
+    sum = sumarrmicrowaves[sumarrmicrowaves.length - 1];
     switch(sum) {
         case 1:
             notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=6";

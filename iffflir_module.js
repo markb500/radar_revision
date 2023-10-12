@@ -1,10 +1,10 @@
-var sumarr = [], sumq, suma;
+var sumarriffflir = [], sumq, suma;
 function iffflir(ctx, ctx2) {
   var sum, notesLink;
   sumq = "";
   suma = "";
-  sumarr = QLimitRepeats(sumarr, 12);
-  sum = sumarr[sumarr.length - 1];
+  sumarriffflir = QLimitRepeats(sumarriffflir, 12);
+  sum = sumarriffflir[sumarriffflir.length - 1];
   switch(sum) {
     case 1:
       notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=9";

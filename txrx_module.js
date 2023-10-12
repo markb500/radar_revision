@@ -1,10 +1,10 @@
-var sumarr = [], sumq, suma;
+var sumarrtxrx = [], sumq, suma;
 function txrx(ctx, ctx2) {
   var sum, notesLink, sect, L, C, Z, PW;
   sumq = "";
   suma = "";
-  sumarr = QLimitRepeats(sumarr, 21);
-  sum = sumarr[sumarr.length - 1];
+  sumarrtxrx = QLimitRepeats(sumarrtxrx, 21);
+  sum = sumarrtxrx[sumarrtxrx.length - 1];
   switch(sum) {
     case 1:
       notesLink = "images/20200422-RadarBk3TxRx_v1_3-APO.pdf#page=6";

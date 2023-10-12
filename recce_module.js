@@ -1,10 +1,10 @@
-var sumarr = [], sumq, suma;
+var sumarrrecce = [], sumq, suma;
 function recce(ctx, ctx2) {
   var sum, notesLink;
   sumq = "";
   suma = "";
-  sumarr = QLimitRepeats(sumarr, 11);
-  sum = sumarr[sumarr.length - 1];
+  sumarrrecce = QLimitRepeats(sumarrrecce, 11);
+  sum = sumarrrecce[sumarrrecce.length - 1];
   switch(sum) {
     case 1:
       notesLink = "images/20200422-RadarBook6ACReconSysCIv1_3-APO.pdf#page=7";

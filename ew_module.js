@@ -1,10 +1,10 @@
-var sumarr = [], sumq, suma;
+var sumarrew = [], sumq, suma;
 function ew(ctx) {
   var sum, notesLink;
   sumq = "";
   suma = "";
-  sumarr = QLimitRepeats(sumarr, 22);
-  sum = sumarr[sumarr.length - 1];
+  sumarrew = QLimitRepeats(sumarrew, 22);
+  sum = sumarrew[sumarrew.length - 1];
   switch(sum) {
     case 1:
       notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=5";
@@ -63,44 +63,49 @@ function ew(ctx) {
       sumq += "State how an aircraft's Radar Warning Receiver (RWR) can be used within Electronic Support Measures (ESM)";
       suma += "When an aircraft is being illuminated by enemy radar it can detect what type of radar is being used.";
       break;
-      case 12:
-        notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=10";
-        sumq += "In the Radar Warning Receiver (RWR) system shown, name the blocks labelled A, B & C.";
-        suma += "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
-        suma += "A: Receiver.<br>B: Threat Library.<br>C: Signal Processor.";
-        ctx.drawImage(rwrblk, 0, 0, 600, 400);
-        break;
+    case 12:
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=10";
+      sumq += "In the Radar Warning Receiver (RWR) system shown, name the blocks labelled A, B & C.";
+      suma += "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+      suma += "A: Receiver.<br>B: Threat Library.<br>C: Signal Processor.";
+      ctx.drawImage(rwrblk, 0, 0, 600, 400);
+      break;
     case 13:
+      notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=10";
+      sumq += "List four types of information about a threat signal that can be detected by a Radar Warning Receiver (RWR).";
+      suma += "- Bearing to the threat.<br>- Signal Strength.<br>- Freq / Band. (E-H,I & J ).<br>- Signal Type (Pulsed, CW, TWS).";
+      break;
+    case 14:
       notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=10";
       sumq += "Where in the aircraft's Radar Warning Receiver would you find information on different radar characteristics.";
       suma += "The Threat Library";
       break;
-    case 14:
+    case 15:
       notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=11";
       sumq += "List two methods by which an infra-red homing missile could be decoyed away from an aircraft.";
       suma += "Any two from:<br>Flares<br>Chaff<br>Towed decoy<br>Large Aircraft Infra-red Counter Measures (LAIRCM)";
       break;
-    case 15:
+    case 16:
       notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=13";
       sumq += "Briefly explain the purpose of flares dropped by an aircraft.";
       suma += "To present a target to a missile which is more attractive than the aircraft.";
       break;
-    case 16:
+    case 17:
       notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=18";
       sumq += "The word LASER is an acronym for?";
       suma += "LASER - <b>L</b>ight <b>A</b>mplification by <b>S</b>timulated <b>E</b>mission of <b>R</b>adiation";
       break;
-    case 17:
+    case 18:
       notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=18";
       sumq += "List two of the main characteristics of laser light.";
       suma += "Any two from:<br>Monochromatic<br>Coherent<br>Intensely bright<br>Low divergence";
       break;
-    case 18:
+    case 19:
       notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=19";
       sumq += "Lasers are classified into safety classes. Which is the most powerful/dangerous class of laser, I or IV?";
       suma += "Class IV.";
       break;
-    case 19:
+    case 20:
       notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=21";
       sumq += "A Large Aircraft Infra-red Counter Measures (LAIRCM) system is composed of 4 main functional parts. List 3 of these (not LRUs).";
       suma += "Any three from:<br>" +
@@ -110,7 +115,7 @@ function ew(ctx) {
               "and provides closed loop tracking of the threat with a self-contained sensor<br>" +      
               "- A series of multi-spectral flare packs";
       break;
-    case 20:
+    case 21:
       notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=21";
       sumq += "List 3 Large Aircraft Infra-red Counter Measures (LAIRCM) LRUs.";
       suma += "Any three from:<br>" +
@@ -119,12 +124,12 @@ function ew(ctx) {
               "A Control Indicator Unit (CIU) that allows the operator to initiate the system, carry out Built-in Test (BIT) and warn of missile detection<br>" +
               "Missile Warning Sensors which are placed around the periphery of the aircraft, in locations that maximise detection view from below the aircraft";
       break;
-    case 21:
+    case 22:
       notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=21";
       sumq += "What are the four phases of the Large Aircraft Infra-red Counter Measures (LAIRCM) engagement sequence?";
       suma += "Detect, Handoff, Track and Jam.";
       break;
-    case 22:
+    case 23:
       notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=22";
       sumq += "Briefly describe 4 common Large Aircraft Infra-red Counter Measures (LAIRCM) safety procedures.";
       suma += "Any four from:<br>" +

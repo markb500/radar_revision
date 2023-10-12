@@ -1,10 +1,10 @@
-var sumarr = [], sumq, suma;
+var sumarrbasicrad = [], sumq, suma;
 function basicradar(ctx) {
     var notesLink, slantrange, sum, pp, pw, prf, mp, ps;
     sumq = "";
     suma = "";
-    sumarr = QLimitRepeats(sumarr, 31);   //Ensures no repeat question until at least 50% of questions shown
-    sum = sumarr[sumarr.length - 1];
+    sumarrbasicrad = QLimitRepeats(sumarrbasicrad, 31);   //Ensures no repeat question until at least 50% of questions shown
+    sum = sumarrbasicrad[sumarrbasicrad.length - 1];
     switch(sum) {
         case 1:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=7";

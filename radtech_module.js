@@ -1,10 +1,10 @@
-var sumarr = [], sumq, suma;
+var sumarrradtech = [], sumq, suma;
 function radtech(ctx) {
   var sum, notesLink;
   sumq = "";
   suma = "";
-  sumarr = QLimitRepeats(sumarr, 33);
-  sum = sumarr[sumarr.length - 1];
+  sumarrradtech = QLimitRepeats(sumarrradtech, 33);
+  sum = sumarrradtech[sumarrradtech.length - 1];
   switch(sum) {
     case 1:
       notesLink = "images/20200422-RadarBook4RadTechv1_2-APO.pdf#page=7";
