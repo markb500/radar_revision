@@ -235,7 +235,8 @@ function sumshow(sumType, h1, w1, h2, w2) {
   switch (sumType) {
     case "basicradar":
       ctx = myCanvas.getContext('2d');
-      sumData = basicradar(ctx);
+      ctx2 = myCanvas2.getContext('2d');
+      sumData = basicradar(ctx, ctx2);
       break;
     case "microwaves":
       ctx = myCanvas.getContext('2d');
@@ -300,7 +301,12 @@ function testsumshow(sumType, qnum) {
       document.getElementById('myCanvasq' + qnum).height = '300';
       document.getElementById('myCanvasq' + qnum).width = '500';
       ctx = document.getElementById('myCanvasq' + qnum).getContext('2d');
-      sumData = basicradar(ctx);
+      document.getElementById('myCanvasqa' + qnum).style.visibility = 'visible';
+      document.getElementById('myCanvasqa' + qnum).height = '300';
+      document.getElementById('myCanvasqa' + qnum).width = '500';
+      ctx2 = document.getElementById('myCanvasqa' + qnum).getContext('2d');
+      sumData = basicradar(ctx, ctx2);
+      ctx2.drawImage(document.getElementById('myCanvasq' + qnum), 0, 0);
       break;
     case "microwaves":
       document.getElementById('myCanvasq' + qnum).style.visibility = 'visible';
