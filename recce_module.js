@@ -9,8 +9,9 @@ function recce(ctx, ctx2) {
     case 1:
       notesLink = "images/20200422-RadarBook6ACReconSysCIv1_3-APO.pdf#page=7";
       sumq += "Explain the purpose and state an advantage of the Reconnaissance Airborne Pod for Tornado (RAPTOR).";
-      suma += "The RAPTOR provides the RAF with an Intelligence, Surveillance, Target Acquisition & Reconnaissance (ISTAR) asset used in reconnaissance and surveillance. Its purpose is to collect digital images " +
-              "of the ground in an area of interest. It can use both infra-red and visible light.";
+      suma += "The RAPTOR provides the RAF with an Intelligence, Surveillance, Target Acquisition & Reconnaissance (ISTAR) " +
+              "asset used in reconnaissance and surveillance. Its purpose is to collect, record and transmit digital images " +
+              "via data link in near real time. It can use both infra-red and visible light long range oblique photography.";
       break;
     case 2:
       notesLink = "images/20200422-RadarBook6ACReconSysCIv1_3-APO.pdf#page=8";
@@ -42,7 +43,7 @@ function recce(ctx, ctx2) {
       break;
     case 5:
       notesLink = "images/20200422-RadarBook6ACReconSysCIv1_3-APO.pdf#page=12";
-      sumq += "State 4 navigation parameters provided by the INS to the RAPTOR pod.";
+      sumq += "State 4 navigation parameters provided by the aircraft navigation systems to the RAPTOR pod.";
       suma += "Any four from:<br>Aircraft Pitch and Roll attitude<br>" +
       "True heading<br>" +
       "Aircraft velocities (North, East and Vertical)<br>" +

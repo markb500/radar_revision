@@ -3,7 +3,7 @@ function iffflir(ctx, ctx2) {
   var sum, notesLink;
   sumq = "";
   suma = "";
-  sumarriffflir = QLimitRepeats(sumarriffflir, 12);
+  sumarriffflir = QLimitRepeats(sumarriffflir, 14);
   sum = sumarriffflir[sumarriffflir.length - 1];
   switch(sum) {
     case 1:
@@ -36,26 +36,31 @@ function iffflir(ctx, ctx2) {
       ctx2.drawImage(iffssrmodesa, 0, 0, 600, 400);
       break;
     case 5:
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=7";
+      sumq += "In an IFF/SSR system, state the meaning of codes 7700, 7600 and 7500"
+      suma += "7700 = Emergency<br>7600 = Radio failure<br>7500 = Hijack or interference"
+      break;
+    case 6:
       notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=8";
       sumq += "What Air Traffic system is a mode S transponder used with?";
       suma += "The Traffic Collision Avoidance System (TCAS).";
       break;
-    case 6:
+    case 7:
       notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=14";
       sumq += "Which region of the infra-red frequency band is used for Thermal Imaging?";
       suma += "The mid to far IR region (8 - 14 &mu;m)";
       break;
-    case 7:
+    case 8:
       notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=14";
       sumq += "Above what temperature do objects emit infra-red (IR) radiation?";
       suma += "Above absolute zero (-273.15 &deg;C or 0 K), objects will emit infra-red (IR) radiation.";
       break;
-    case 8:
+    case 9:
       notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=14";
       sumq += "What happens to the frequency and wavelength of emitted infra-red radiation as objects get hotter?";
       suma += "The frequency increases and the wavelength decreases.";
       break;
-    case 9:
+    case 10:
       notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=18";
       sumq += "State two advantages of IR thermal imaging systems."
       suma += "Any two from:<br>" +
@@ -63,7 +68,7 @@ function iffflir(ctx, ctx2) {
               "Independent of natural or artificial lighting<br>" +
               "Not easily deceived by camouflage. ";
       break;
-    case 10:
+    case 11:
       notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=18";
       sumq += "State two disadvantages of IR thermal imaging systems.";
       suma += "Any two from:<br>" +
@@ -73,7 +78,7 @@ function iffflir(ctx, ctx2) {
               "- Sensor head / optical systems are made from very expensive, special materials. Some are toxic and even radioactive so extreme care " +
               "must be taken when handling these"
       break;
-    case 11:
+    case 12:
       notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=16";
       sumq += "In the Forward Looking Infra-Red (FLIR) system shown, briefly state the function of:<br>" +
               "a. The Shutter & Window Assembly.<br>" +
@@ -96,10 +101,16 @@ function iffflir(ctx, ctx2) {
               "similar way to a standard light camera.";
       ctx.drawImage(flirblk, 0, 0, 600, 400);
       break;
-    case 12:
+    case 13:
       notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=16";
       sumq += "Explain why ordinary glass cannot be used for infra-red lenses.";
       suma += "Ordinary/conventional glass is opaque to IR wavelengths greater than 3 &mu;m, so special materials must used for lenses and windows.";
+      break;
+    case 14:
+      notesLink = "images/20200422-RadarBook5IFF_FLIRCI_v1_3-APO.pdf#page=16";
+      sumq += "Explain what a thermal shadow is.";
+      suma += "Thermal shadows are caused by areas being shaded from direct sunlight radiation (or exposed to other sources of heat) and depend on how quickly " +
+              "the heat is lost. Thermal shadows in the shape of moveable objects (eg aircraft on the ground) can often be seen long after the object has moved.";
       break;
   }
   
