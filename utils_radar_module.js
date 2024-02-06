@@ -221,6 +221,13 @@ function QLimitRepeats(arr, x) {
   return arr;
 }
 
+function isCanvasBlank(canvas) {
+  // returns true if all color channels in each pixel are 0 (or "blank")
+  return !canvas.getContext('2d')
+    .getImageData(0, 0, canvas.width, canvas.height).data
+    .some(channel => channel !== 0);
+}
+
 function sumshow(sumType, h1, w1, h2, w2) {
   //Called by btn click in Index. Gets required sum data and sets up canvas if required.
   document.getElementById("myCanvas");
@@ -306,6 +313,7 @@ function testsumshow(sumType, qnum) {
       document.getElementById('myCanvasqa' + qnum).width = '500';
       ctx2 = document.getElementById('myCanvasqa' + qnum).getContext('2d');
       sumData = basicradar(ctx, ctx2);
+      sumData[1] = sumData[1].replace("<br>".repeat(8), "");     //Removes lead in <br>'s from solution
       ctx2.drawImage(document.getElementById('myCanvasq' + qnum), 0, 0);
       break;
     case "microwaves":
@@ -331,6 +339,7 @@ function testsumshow(sumType, qnum) {
       document.getElementById('myCanvasqa' + qnum).width = '600';
       ctx2 = document.getElementById('myCanvasqa' + qnum).getContext('2d');
       sumData = txrx(ctx, ctx2);
+      sumData[1] = sumData[1].replace("<br>".repeat(8), "");     //Removes lead in <br>'s from solution
       ctx2.drawImage(document.getElementById('myCanvasq' + qnum), 0, 0);
       break;
     case "radtech":
@@ -339,6 +348,7 @@ function testsumshow(sumType, qnum) {
       document.getElementById('myCanvasq' + qnum).width = '600';
       ctx = document.getElementById('myCanvasq' + qnum).getContext('2d');
       sumData = radtech(ctx);
+      sumData[1] = sumData[1].replace("<br>".repeat(8), "");     //Removes lead in <br>'s from solution
       break;
     case "iffflir":
       document.getElementById('myCanvasq' + qnum).style.visibility = 'visible';
@@ -350,6 +360,7 @@ function testsumshow(sumType, qnum) {
       document.getElementById('myCanvasqa' + qnum).width = '600';
       ctx2 = document.getElementById('myCanvasqa' + qnum).getContext('2d');
       sumData = iffflir(ctx, ctx2);
+      sumData[1] = sumData[1].replace("<br>".repeat(8), "");     //Removes lead in <br>'s from solution
       ctx2.drawImage(document.getElementById('myCanvasq' + qnum), 0, 0);
       break;
     case "recce":
@@ -362,6 +373,7 @@ function testsumshow(sumType, qnum) {
       document.getElementById('myCanvasqa' + qnum).width = '600';
       ctx2 = document.getElementById('myCanvasqa' + qnum).getContext('2d');
       sumData = recce(ctx, ctx2);
+      sumData[1] = sumData[1].replace("<br>".repeat(8), "");     //Removes lead in <br>'s from solution
       ctx2.drawImage(document.getElementById('myCanvasq' + qnum), 0, 0);
       break;
     case "ew":
@@ -369,7 +381,13 @@ function testsumshow(sumType, qnum) {
       document.getElementById('myCanvasq' + qnum).height = '400';
       document.getElementById('myCanvasq' + qnum).width = '600';
       ctx = document.getElementById('myCanvasq' + qnum).getContext('2d');
+      document.getElementById('myCanvasqa' + qnum).style.visibility = 'visible';
+      document.getElementById('myCanvasqa' + qnum).height = '400';
+      document.getElementById('myCanvasqa' + qnum).width = '600';
+      ctx2 = document.getElementById('myCanvasqa' + qnum).getContext('2d');
       sumData = ew(ctx);
+      sumData[1] = sumData[1].replace("<br>".repeat(8), "");     //Removes lead in <br>'s from solution
+      ctx2.drawImage(document.getElementById('myCanvasq' + qnum), 0, 0);
       break;
   }
 }
@@ -489,6 +507,25 @@ function sumAuth(sumtype, qnum) {
   document.getElementById('ai' + (qnum)).innerHTML = qnum + ".  " + sumData[0] + '<br>';
   document.getElementById('aii' + (qnum)).innerHTML = sumData[1];
   
+  if (document.getElementById('myCanvasq' + qnum).height > 1) {
+    if (isCanvasBlank(document.getElementById('myCanvasq' + qnum))) {
+      document.getElementById('myCanvasq' + qnum).height = "0.5";
+      document.getElementById('myCanvasq' + qnum).width = "0.5";
+    }
+  }
+  if (document.getElementById('myCanvasqa' + qnum).height > 1) {
+    if (isCanvasBlank(document.getElementById('myCanvasqa' + qnum))) {
+      document.getElementById('myCanvasqa' + qnum).height = "0.5";
+      document.getElementById('myCanvasqa' + qnum).width = "0.5";
+    }
+  }
+  if (document.getElementById('myCanvasa' + qnum).height > 1) {
+    if (isCanvasBlank(document.getElementById('myCanvasa' + qnum))) {
+      document.getElementById('myCanvasa' + qnum).height = "0.5";
+      document.getElementById('myCanvasa' + qnum).width = "0.5";
+    }
+  }
+
   if (qnum % 2 === 0) {
     var adivoddsize = document.getElementById('adiv' + (qnum - 1)).offsetHeight;  // Height of odd-numbered answer div, inc question
     var adivevensize = document.getElementById('adiv' + qnum).offsetHeight;   // Height of even-numbered answer div, inc question
