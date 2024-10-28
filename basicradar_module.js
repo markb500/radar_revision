@@ -126,7 +126,7 @@ function basicradar(ctx, ctx2) {
             suma += "<br><br><br>";
             suma += "$$\\begin{aligned}relative\\ velocity &= v_x + v_y\\\\[5pt]";
             suma += "&=" + vx + "+" + vy + "\\\\[5pt]";
-            suma += "&=\\underline{\\mathbf{" + vclosing + "\\ kts}}\\end{aligned}$$";
+            suma += "&=\\underline{\\mathbf{" + vclosing + "\\ kts\\ closing}}\\end{aligned}$$";
             ctx.drawImage(jetsclosing, 0, 0, 500, 100);
             ctx.font = "20px Comic Sans MS";
             ctx.textAlign = "center";
@@ -138,13 +138,19 @@ function basicradar(ctx, ctx2) {
             do {
                 var vx = rndgen(450, 680, 0, 5, -1);
                 var vy = rndgen(450, 680, 0, 5, -1);
-                var vopening = thouSep(vy - vx, "\\ ");
             } while (vx === vy);
             sumq += "Calculate the relative velocity of the two aircraft shown.";
-            suma += "<br><br><br>";
-            suma += "$$\\begin{aligned}relative\\ velocity &= v_y - v_x\\\\[5pt]";
-            suma += "&=" + vy + "-" + vx + "\\\\[5pt]";
-            suma += "&=\\underline{\\mathbf{" + vopening + "\\ kts}}\\end{aligned}$$";
+            if (vx > vy) {
+                suma += "<br><br><br>";
+                suma += "$$\\begin{aligned}relative\\ velocity &= v_x - v_y\\\\[5pt]";
+                suma += "&=" + vx + "-" + vy + "\\\\[5pt]";
+                suma += "&=\\underline{\\mathbf{" + thouSep(vx - vy, "\\ ") + "\\ kts\\ opening}}\\end{aligned}$$";
+            } else {
+                suma += "<br><br><br>";
+                suma += "$$\\begin{aligned}relative\\ velocity &= v_y - v_x\\\\[5pt]";
+                suma += "&=" + vy + "-" + vx + "\\\\[5pt]";
+                suma += "&=\\underline{\\mathbf{" + thouSep(vy - vx, "\\ ") + "\\ kts\\ closing}}\\end{aligned}$$";
+            }
             ctx.drawImage(jetsopening, 0, 0, 500, 100);
             ctx.font = "20px Comic Sans MS";
             ctx.textAlign = "center";
