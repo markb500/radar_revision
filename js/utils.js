@@ -119,15 +119,5 @@ export function loadImages() {
     const img = new Image();
     img.src = src;
     images[name] = img;
-    // Legacy bare names used by original modules (e.g. basicradblk)
-    window[name] = img;
-  });
+});
 }
-
-window.eqnformat = eqnformat;
-window.rndgen = rndgen;
-window.dp = dp;
-window.thouSep = thouSep;
-window.QLimitRepeats = QLimitRepeats;
-window.loadImages = loadImages;
-window.removeLeadbr = removeLeadbr;
