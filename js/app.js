@@ -17,11 +17,13 @@ let views = 0;
 let SolnWin = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-  utils.loadImages();
-  initSecretCode();
-
   document.querySelectorAll('.topic-btn').forEach((btn) => {
-    btn.addEventListener('click', () => generateQuestion(btn.dataset.topic));
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const topic = btn.dataset.topic || topicMap[btn.textContent.trim()];
+      generateQuestion(topic);
+    });
+    if (!btn.getAttribute('type')) btn.setAttribute('type', 'button');
   });
 
   if (!new URLSearchParams(window.location.search).get('test')) {
@@ -35,12 +37,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const solnBtn = document.getElementById('btnSoln');
-  if (solnBtn) solnBtn.addEventListener('click', toggleSolution);
+  if (solnBtn) {
+    solnBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleSolution();
+    });
+  }
 
   const colourSelect = document.getElementById('colourSelect');
   if (colourSelect) {
     colourSelect.addEventListener('change', () => {
       document.querySelector(':root').style.setProperty('--bgcolour', colourSelect.value);
+      applyBackgroundToSolnWin();
     });
   }
 
@@ -48,11 +56,88 @@ document.addEventListener('DOMContentLoaded', () => {
   if (params.get('test') === '1') {
     runTestMode();
   }
+
+  initSecretCode();
+  initStaffSolnControl();
+
+  try {
+    const maybePromise = utils.loadImages();
+    if (maybePromise && typeof maybePromise.catch === 'function') {
+      maybePromise.catch((err) => console.warn('loadImages failed:', err));
+    }
+  } catch (err) {
+    console.warn('loadImages failed:', err);
+  }
 });
 
-function updateSolnWin() {
-  if (!SolnWin || SolnWin.closed || !currentSumData) return;
+
+function getPageBackground() {
+  const sel = document.getElementById('colourSelect');
+  if (sel && sel.value) return sel.value;
+  return getComputedStyle(document.documentElement).getPropertyValue('--bgcolour').trim() || '#ffffff';
+}
+
+function applyBackgroundToSolnWin() {
+  if (!SolnWin || SolnWin.closed) return;
   try {
+    const bg = getPageBackground();
+    const doc = SolnWin.document;
+    if (!doc || !doc.documentElement) return;
+    doc.documentElement.style.setProperty('--bgcolour', bg);
+    if (doc.body) doc.body.style.backgroundColor = bg;
+  } catch (err) {
+    console.warn('Could not set SolnWin background:', err);
+  }
+}
+
+function updateDiagramDescription(show, forSolution) {
+  const descEl = document.getElementById('diagramDesc');
+  const canvas = document.getElementById('myCanvas');
+  const canvas2 = document.getElementById('myCanvas2');
+  if (!descEl) return;
+
+  let text = '';
+  if (show && currentSumData && currentSumData.canvas) {
+    const c = currentSumData.canvas;
+    if (forSolution) {
+      text = c.solutionDescription || c.description || '';
+    } else {
+      text = c.description || '';
+    }
+  }
+
+  if (text) {
+    descEl.textContent = text;
+    descEl.hidden = false;
+    for (const el of [canvas, canvas2]) {
+      if (!el) continue;
+      el.setAttribute('role', 'img');
+      el.setAttribute('aria-label', text);
+      el.setAttribute('aria-hidden', 'false');
+    }
+  } else {
+    descEl.textContent = '';
+    descEl.hidden = true;
+    for (const el of [canvas, canvas2]) {
+      if (!el) continue;
+      el.removeAttribute('role');
+      el.removeAttribute('aria-label');
+      el.setAttribute('aria-hidden', 'true');
+    }
+  }
+}
+
+function setSolutionExpanded(expanded) {
+  const btn = document.getElementById('btnSoln');
+  if (btn) btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+}
+
+function updateSolnWin() {
+  if (!SolnWin || SolnWin.closed) return;
+  try {
+    applyBackgroundToSolnWin();
+    if (!currentSumData) return;
+
     const a2 = SolnWin.document.getElementById('a2');
     const c3 = SolnWin.document.getElementById('myCanvas3');
     if (!a2) return;
@@ -60,21 +145,59 @@ function updateSolnWin() {
     a2.innerHTML = utils.removeLeadbr(currentSumData.solution || '');
 
     if (c3) {
-      if (currentSumData.canvas) {
-        const w = currentSumData.canvas.width || 400;
-        const h = currentSumData.canvas.height || 400;
+      const c3b = SolnWin.document.getElementById('myCanvas3b');
+      const stack3 = SolnWin.document.getElementById('canvasStack3');
+      const c = currentSumData.canvas;
+
+      // Question-only diagrams stay off the teacher window.
+      // Show figures only when there is a solution diagram (withSolution).
+      if (c && c.withSolution) {
+        const w = c.width || 400;
+        const h = c.height || 400;
+        if (stack3) {
+          stack3.style.width = w + 'px';
+          stack3.style.height = h + 'px';
+          stack3.style.position = 'relative';
+        }
         c3.width = w;
         c3.height = h;
         const ctx3 = c3.getContext('2d');
         ctx3.clearRect(0, 0, w, h);
-        if (typeof currentSumData.canvas.draw === 'function') {
-          currentSumData.canvas.draw(ctx3);
-        } else if (typeof currentSumData.canvas.questionDraw === 'function') {
-          currentSumData.canvas.questionDraw(ctx3);
+
+        if (typeof c.questionDraw === 'function') {
+          // Base question figure (e.g. empty resonant cavity)
+          c.questionDraw(ctx3);
+          if (c3b) {
+            c3b.width = w;
+            c3b.height = h;
+            c3b.style.visibility = 'visible';
+            const ctx3b = c3b.getContext('2d');
+            ctx3b.clearRect(0, 0, w, h);
+            if (typeof c.draw === 'function') c.draw(ctx3b);
+          } else if (typeof c.draw === 'function') {
+            c.draw(ctx3);
+          }
+        } else {
+          // Solution-only figure
+          if (typeof c.draw === 'function') c.draw(ctx3);
+          if (c3b) {
+            c3b.width = 0.5;
+            c3b.height = 0.5;
+            c3b.style.visibility = 'hidden';
+          }
         }
       } else {
         c3.width = 0.5;
         c3.height = 0.5;
+        if (c3b) {
+          c3b.width = 0.5;
+          c3b.height = 0.5;
+          c3b.style.visibility = 'hidden';
+        }
+        if (stack3) {
+          stack3.style.width = '0.5px';
+          stack3.style.height = '0.5px';
+        }
       }
     }
 
@@ -87,11 +210,15 @@ function updateSolnWin() {
 }
 
 function generateQuestion(topic) {
+  try {
+  if (!topic) throw new Error('No topic key on button (data-topic missing)');
   currentSumData = registry.get(topic).generate();
 
   document.getElementById('q').innerHTML = currentSumData.question;
   document.getElementById('a').innerHTML = '';
   document.getElementById('a').style.visibility = 'hidden';
+  setSolutionExpanded(false);
+  updateDiagramDescription(false, false);
 
   const notes = document.getElementById('noteslink');
   if (notes) {
@@ -116,12 +243,15 @@ function generateQuestion(topic) {
     canvas.height = currentSumData.canvas.height;
     canvas.width = currentSumData.canvas.width;
     sizeStack(canvas.width, canvas.height);
-    currentSumData.canvas.draw(canvas.getContext('2d'));
+    if (typeof currentSumData.canvas.draw === 'function') {
+      currentSumData.canvas.draw(canvas.getContext('2d'));
+    }
     if (canvas2) {
       canvas2.height = 0.5;
       canvas2.width = 0.5;
       canvas2.style.visibility = 'hidden';
     }
+    updateDiagramDescription(true, false);
   } else if (currentSumData.canvas && currentSumData.canvas.withSolution) {
     const w = currentSumData.canvas.width;
     const h = currentSumData.canvas.height;
@@ -139,6 +269,7 @@ function generateQuestion(topic) {
       canvas2.width = 0.5;
       canvas2.style.visibility = 'hidden';
     }
+    updateDiagramDescription(true, false);
   } else {
     canvas.height = 0.5;
     canvas.width = 0.5;
@@ -155,6 +286,16 @@ function generateQuestion(topic) {
   updateViewCount();
   document.getElementById('btnSoln').style.visibility = 'visible';
   updateSolnWin();
+  } catch (err) {
+    console.error('generateQuestion failed:', topic, err);
+    const qEl = document.getElementById('q');
+    if (qEl) {
+      qEl.innerHTML =
+        '<span style="color:#9b0000">Could not generate question for “' +
+        String(topic) +
+        '”. See the browser console for details.</span>';
+    }
+  }
 }
 
 function toggleSolution() {
@@ -168,6 +309,7 @@ function toggleSolution() {
     utils.eqnformat('a');
     views++;
     updateViewCount();
+    setSolutionExpanded(true);
 
     if (currentSumData.canvas && currentSumData.canvas.withSolution) {
       const w = currentSumData.canvas.width;
@@ -187,14 +329,19 @@ function toggleSolution() {
         canvas.width = w;
         currentSumData.canvas.draw(canvas.getContext('2d'));
       }
+      updateDiagramDescription(true, true);
     }
   } else {
     aDiv.innerHTML = '';
     aDiv.style.visibility = 'hidden';
+    setSolutionExpanded(false);
     if (canvas2) {
       canvas2.height = 0.5;
       canvas2.width = 0.5;
       canvas2.style.visibility = 'hidden';
+    }
+    if (currentSumData.canvas && currentSumData.canvas.withSolution) {
+      updateDiagramDescription(true, false);
     }
   }
 }
@@ -211,25 +358,57 @@ function updateViewCount() {
   }
 }
 
+function openSolnWin() {
+  try {
+    if (SolnWin && !SolnWin.closed) {
+      SolnWin.focus();
+      applyBackgroundToSolnWin();
+      updateSolnWin();
+      return SolnWin;
+    }
+  } catch (err) { /* ignore */ }
+
+  SolnWin = window.open('SolnWin.html', 'SolnWin', 'resizable=yes,scrollbars=yes');
+  if (SolnWin) {
+    SolnWin.addEventListener('load', () => {
+      applyBackgroundToSolnWin();
+      updateSolnWin();
+    });
+    setTimeout(() => {
+      applyBackgroundToSolnWin();
+      updateSolnWin();
+    }, 500);
+  } else {
+    console.warn('Solution window was blocked. Allow pop-ups for this site.');
+  }
+  return SolnWin;
+}
+
 function initSecretCode() {
+  // Legacy undocumented shortcut (chpz) — prefer #btnStaffSoln
   const pressed = [];
   const secretCode = 'chpz';
   window.addEventListener('keyup', (e) => {
     pressed.push(e.key);
     pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
     if (pressed.join('').includes(secretCode)) {
-      SolnWin = window.open('SolnWin.html', 'SolnWin', 'resizable=yes,scrollbars=yes');
-      if (SolnWin) {
-        SolnWin.addEventListener('load', () => updateSolnWin());
-        setTimeout(() => updateSolnWin(), 500);
-      }
+      openSolnWin();
     }
+  });
+}
+
+function initStaffSolnControl() {
+  const btn = document.getElementById('btnStaffSoln');
+  if (!btn) return;
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    openSolnWin();
   });
 }
 
 function runTestMode() {
   document.querySelectorAll('.topic-btn').forEach((btn) => (btn.style.display = 'none'));
-  ['testdesign', 'userhelp', 'topicInstruction'].forEach((id) => {
+  ['testdesign', 'btnStaffSoln', 'userhelp', 'topicInstruction'].forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
   });

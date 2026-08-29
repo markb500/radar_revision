@@ -29,6 +29,8 @@ export function generate() {
   offS.height = CANVAS_H;
   const ctx2 = offS.getContext('2d');
 
+  let sect, L, C, Z, PW;
+
   switch (sum) {
 
     case 1:
@@ -239,6 +241,19 @@ export function generate() {
         if (img.complete) c.drawImage(img, 0, 0);
       };
     }
+    if (!qBlank && sBlank) {
+      out.canvas.description =
+        'Diagram: figure supplied with this question. Use the labels, axes or layout shown when working out the answer.';
+    } else if (qBlank && !sBlank) {
+      out.canvas.solutionDescription =
+        'Diagram: figure shown with the solution for this question. It may include completed labels, construction or a worked schematic.';
+    } else {
+      out.canvas.description =
+        'Diagram: figure as given with the question.';
+      out.canvas.solutionDescription =
+        'Diagram (solution): completed or annotated figure for this question.';
+    }
+
   }
 
   return out;

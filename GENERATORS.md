@@ -4,6 +4,35 @@ Each file: `js/generators/<name>.js`, exports `generate()`. Case numbers below a
 
 ---
 
+**Common return shape**
+
+```js
+{
+  question: string,
+  solution: string,
+  notesLink: string,
+  canvas?: {
+    width, height, withSolution,
+    draw, questionDraw?,
+    description?,           // question-phase text alternative
+    solutionDescription?    // when solution diagram is shown
+  },
+  showHow?: boolean,        // Science vectors animation
+  meta?: object             // only when generate({ fixture }) is used
+}
+```
+
+**Diagram rules**
+
+| `withSolution` | `questionDraw` | Main page | Teacher SolnWin |
+|----------------|----------------|-----------|-----------------|
+| `false` | — | Question shows `draw` | No diagram |
+| `true` | absent | Solution shows `draw` | Solution `draw` |
+| `true` | present | Question uses `questionDraw`; solution overlays `draw` | Same overlay |
+
+Prefer `description` / `solutionDescription` whenever a canvas is used so `#diagramDesc` can expose the figure to assistive technology.
+
+
 ## basicradar.js — Basic Radar
 
 | | |
