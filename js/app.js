@@ -219,6 +219,12 @@ function generateQuestion(topic) {
   document.getElementById('a').innerHTML = '';
   document.getElementById('a').style.visibility = 'hidden';
   solutionShowing = false;
+  const _c2 = document.getElementById('myCanvas2');
+  if (_c2) {
+    _c2.height = 0.5;
+    _c2.width = 0.5;
+    _c2.style.visibility = 'hidden';
+  }
   setSolutionExpanded(false);
   updateDiagramDescription(false, false);
 
