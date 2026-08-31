@@ -15,6 +15,7 @@ let recentIds = [];
 export function generate() {
   recentIds = QLimitRepeats(recentIds, 20);
   const sum = recentIds[recentIds.length - 1];
+  let diagramKind = null;
 
   let notesLink = NOTES;
   let sumq = '';
@@ -36,6 +37,7 @@ export function generate() {
             sumq += "Show the position of the “E” fields, “H” fields and “wall currents” in the cross-section of a cylindrical resonant cavity shown.";
             ctx.drawImage(images.cavitysect, 0, 0, 500, 300);
             ctx2.drawImage(images.cavityfields, -13, 0, 500, 300);
+            diagramKind = 'cavityFields';
             break;
         case 2:
             notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=6";
@@ -221,7 +223,14 @@ export function generate() {
         if (img.complete) c.drawImage(img, 0, 0);
       };
     }
-    if (!qBlank && sBlank) {
+    if (diagramKind === 'cavityFields') {
+      out.canvas.description =
+        'Cross-section of a cylindrical resonant cavity. The circular wall of the cavity is shown; no field lines or wall currents are marked.';
+      out.canvas.solutionDescription =
+        'Cylindrical resonant cavity with fields shown. E fields shown as vertical arrows pointing up, with max strength in centre of cavity. ' +
+        'H fields shown as circle-and-cross on left of cavity and circle-and-dot on right, signifying circulation around cavity. ' +
+        'Max field strength at edge of cavity. Wall currents shown flowing from centre of base, radiating outwards, up the side and in to centre of the top.';
+    } else if (!qBlank && sBlank) {
       out.canvas.description =
         'Diagram: figure supplied with this question. Use the labels, axes or layout shown when working out the answer.';
     } else if (qBlank && !sBlank) {

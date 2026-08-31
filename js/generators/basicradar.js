@@ -16,6 +16,8 @@ let recentIds = [];
 export function generate() {
   recentIds = QLimitRepeats(recentIds, 51);
   const sum = recentIds[recentIds.length - 1];
+  let diagramKind = null; // pulsed | pulsedTest | pulsedWave | cw | fmcw | jetsClosing | jetsOpening
+  let jetVx = null, jetVy = null;
 
   let question = '';
   let solution = '';
@@ -97,42 +99,49 @@ export function generate() {
             sumq += "With reference to the Basic Pulsed Radar Block Diagram shown, which block controls maximum range?";
             suma += "The MTU.";
             ctx.drawImage(images.basicradblk, 0, 0, 500, 300);
+            diagramKind = 'pulsed';
             break;
         case 7:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=16";
             sumq += "With reference to the Basic Pulsed Radar Block Diagram shown, which block controls minimum range?";
             suma += "The Modulator.";
             ctx.drawImage(images.basicradblk, 0, 0, 500, 300);
+            diagramKind = 'pulsed';
             break;
         case 8:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=16";
             sumq += "With reference to the Basic Pulsed Radar Block Diagram shown, which block controls the frequency transmitted by the radar?";
             suma += "The RF Oscillator.";
             ctx.drawImage(images.basicradblk, 0, 0, 500, 300);
+            diagramKind = 'pulsed';
             break;
         case 9:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=16";
             sumq += "With reference to the Basic Pulsed Radar Block Diagram shown, what is the function of the dashed line connecting the Aerial and the Display?";
             suma += "<br><br><br><br><br><br><br><br><br><br><br>To synchronise the Aerial azimuth and elevation information with the Display.";
             ctx.drawImage(images.basicradblk, 0, 0, 500, 300);
+            diagramKind = 'pulsed';
             break;
         case 10:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=16";
             sumq += "With reference to the Basic Pulsed Radar Block Diagram shown, which block amplifies and demodulates the Radar echo signal?";
             suma += "The Receiver.";
             ctx.drawImage(images.basicradblk, 0, 0, 500, 300);
+            diagramKind = 'pulsed';
             break;
         case 11:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=16";
             sumq += "With reference to the Basic Pulsed Radar Block Diagram shown, which block protects the Receiver from the transmitted energy?";
             suma += "The T/R Switch.";
             ctx.drawImage(images.basicradblk, 0, 0, 500, 300);
+            diagramKind = 'pulsed';
             break;
         case 12:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=16";
             sumq += "With reference to the Basic Pulsed Radar Block Diagram shown, which block controls the beam width of the Radar transmission?";
             suma += "The Aerial.";
             ctx.drawImage(images.basicradblk, 0, 0, 500, 300);
+            diagramKind = 'pulsed';
             break;
         case 13:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=16";
@@ -140,11 +149,13 @@ export function generate() {
             suma += "A.&nbsp;&nbsp;MTU<br>B.&nbsp;&nbsp;Modulator<br>C.&nbsp;&nbsp;RF Oscillator<br>D.&nbsp;&nbsp;T/R Switch<br>" +
                         "E.&nbsp;&nbsp;&nbsp;Aerial<br>F.&nbsp;&nbsp;&nbsp;Receiver<br>G.&nbsp;&nbsp;Display";
             ctx.drawImage(images.basicradblklblq, 0, 0, 500, 300);
+            diagramKind = 'pulsedTest';
             break;
         case 14:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=16";
             sumq += "With reference to the Basic Pulsed Radar Block Diagram shown, sketch the waveforms found at test points A - C.";
             ctx.drawImage(images.basicradblkwaveq, 0, 0, 500, 300);
+            diagramKind = 'pulsedTest';  // same diagram family: block with test points A–C
             ctx2.drawImage(images.basicradblkwavea, 0, 0, 500, 300);
             break;
         case 15:
@@ -164,6 +175,9 @@ export function generate() {
             ctx.textAlign = "center";
             ctx.fillText(vx + " kts", 120, 70);
             ctx.fillText(vy + " kts", 380, 70);
+            diagramKind = 'jetsClosing';
+            jetVx = vx;
+            jetVy = vy;
             break;
         case 16:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=10";
@@ -188,6 +202,9 @@ export function generate() {
             ctx.textAlign = "center";
             ctx.fillText(vx + " kts", 110, 80);
             ctx.fillText(vy + " kts", 370, 80);
+            diagramKind = 'jetsOpening';
+            jetVx = vx;
+            jetVy = vy;
             break;
         case 17:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=20";
@@ -196,6 +213,7 @@ export function generate() {
             suma += "Produces the transmitted CW output signal of constant amplitude and frequency. A sample is also sent to the " + 
                     "mixer as the local oscillator frequency.";
             ctx.drawImage(images.basiccwblk, 0, 0, 500, 300);
+            diagramKind = 'cw';
             break;
         case 18:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=20";
@@ -204,6 +222,7 @@ export function generate() {
             suma += "Combines the sample of the transmitter frequency with the received CW frequency and produces the Doppler Shift " + 
                     "frequency which is fed to the receiver.";
             ctx.drawImage(images.basiccwblk, 0, 0, 500, 300);
+            diagramKind = 'cw';
             break;
         case 19:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=20";
@@ -211,6 +230,7 @@ export function generate() {
             suma += "<br><br><br><br><br><br><br><br>";
             suma += "Amplifies and processes the Doppler Shift signal into a suitable format for display.";
             ctx.drawImage(images.basiccwblk, 0, 0, 500, 300);
+            diagramKind = 'cw';
             break;
         case 20:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=22";
@@ -219,6 +239,7 @@ export function generate() {
             suma += "<br><br><br><br><br><br><br><br><br><br><br>";
             suma += "Produces a low frequency modulation signal for the CW Transmitter, which varies linearly over a fixed frequency range.";
             ctx.drawImage(images.basicfmcwblk, 0, 0, 500, 300);
+            diagramKind = 'fmcw';
             break;
         case 21:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=22";
@@ -226,6 +247,7 @@ export function generate() {
             suma += "<br><br><br><br><br><br><br><br><br><br><br>";
             suma += "Produces a frequency modulated signal of constant amplitude.";
             ctx.drawImage(images.basicfmcwblk, 0, 0, 500, 300);
+            diagramKind = 'fmcw';
             break;
         case 22:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=22";
@@ -233,6 +255,7 @@ export function generate() {
             suma += "<br><br><br><br><br><br><br><br><br><br><br>";
             suma += "Combines the current transmitted and received FMCW frequencies producing the modulation frequency difference.";
             ctx.drawImage(images.basicfmcwblk, 0, 0, 500, 300);
+            diagramKind = 'fmcw';
             break;
         case 23:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=22";
@@ -240,6 +263,7 @@ export function generate() {
             suma += "<br><br><br><br><br><br><br><br><br><br><br>";
             suma += "Amplifies and processes the FM modulation frequency difference into a suitable format.";
             ctx.drawImage(images.basicfmcwblk, 0, 0, 500, 300);
+            diagramKind = 'fmcw';
             break;
         case 24:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=12";
@@ -481,16 +505,59 @@ export function generate() {
         if (img.complete) c.drawImage(img, 0, 0);
       };
     }
+    // Descriptions from Radar descriptions pack (layout + live jet speeds)
+    const DESC = {
+      pulsed:
+        'Block diagram showing MTU: 2 arrows to Modulator and Display. ' +
+        'Modulator: arrow to RF Oscillator. RF Oscillator: arrow to T/R Switch. ' +
+        'T/R Switch: 2-way arrow to Aerial and arrow to Receiver. Receiver: arrow to Display. ' +
+        'Also a dotted line linking Aerial and Display.',
+      pulsedTest:
+        'Block diagram showing MTU: 2 arrows to Modulator and Display. ' +
+        'Modulator: arrow to RF Oscillator. RF Oscillator: arrow to T/R Switch. ' +
+        'T/R Switch: 2-way arrow to Aerial and arrow to Receiver. Receiver: arrow to Display. ' +
+        'Also a dotted line links Aerial and Display. ' +
+        '3 test points: A between MTU and Modulator, B between Modulator and RF Oscillator, ' +
+        'C between RF Oscillator and T/R Switch.',
+      pulsedWave:
+        // Kept for compatibility; wave questions now use pulsedTest
+        'Block diagram showing MTU: 2 arrows to Modulator and Display. ' +
+        'Modulator: arrow to RF Oscillator. RF Oscillator: arrow to T/R Switch. ' +
+        'T/R Switch: 2-way arrow to Aerial and arrow to Receiver. Receiver: arrow to Display. ' +
+        'Also a dotted line links Aerial and Display. ' +
+        '3 test points: A between MTU and Modulator, B between Modulator and RF Oscillator, ' +
+        'C between RF Oscillator and T/R Switch.',
+      cw:
+        'Block diagram showing CW Transmitter: 2 arrows to Mixer and TX Aerial. ' +
+        'Mixer: 2 arrows to Receiver and from Rx Aerial. Receiver: arrow to Display.',
+      fmcw:
+        'Block diagram showing Frequency Modulator: arrow to CW Transmitter. ' +
+        'CW Transmitter: 2 arrows to Mixer and TX Aerial. ' +
+        'Mixer: 2 arrows to Receiver and from Rx Aerial. Receiver: arrow to Display. ' +
+        'Frequency Modulator and CW Transmitter enclosed in 1 dotted-line box. ' +
+        'Mixer and Receiver also in 1 dotted-line box.',
+      jetsClosing:
+        'Plan view of 2 aircraft flying toward each other. ' +
+        'Aircraft X on the left has velocity of ' + jetVx + ' kts. ' +
+        'Aircraft Y on the right has velocity of ' + jetVy + ' kts.',
+      jetsOpening:
+        'Plan view of 2 aircraft, both flying in the same direction (to the left). ' +
+        'Aircraft X is leading with velocity of ' + jetVx + ' kts. ' +
+        'Aircraft Y is trailing with velocity of ' + jetVy + ' kts.'
+    };
+
+    const specific = diagramKind && DESC[diagramKind] ? DESC[diagramKind] : null;
+
     if (!qBlank && sBlank) {
-      out.canvas.description =
+      out.canvas.description = specific ||
         'Diagram: figure supplied with this question. Use the labels, axes or layout shown when working out the answer.';
     } else if (qBlank && !sBlank) {
-      out.canvas.solutionDescription =
-        'Diagram: figure shown with the solution for this question. It may include completed labels, construction or a worked schematic.';
+      out.canvas.solutionDescription = specific ||
+        'Diagram: figure shown with the solution for this question.';
     } else {
-      out.canvas.description =
+      out.canvas.description = specific ||
         'Diagram: figure as given with the question.';
-      out.canvas.solutionDescription =
+      out.canvas.solutionDescription = specific ||
         'Diagram (solution): completed or annotated figure for this question.';
     }
 
