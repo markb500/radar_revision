@@ -105,6 +105,7 @@ export function generate() {
             suma += "Distances AB and BC are both 0.25λ. The short circuit at A is therefore reflected back over 0.5λ to form a short circuit at C. " + 
                     "This electronically completes the waveguide wall at the joint, preventing any radiation leakage.";
             ctx.drawImage(images.chokeflange, 0, 0, 500, 300);
+            diagramKind = 'chokeFlange';
             break;
         case 10:
             notesLink = "images/20200421-RadarBk2MicroAE_v1_2-APO.pdf#page=16";
@@ -223,7 +224,14 @@ export function generate() {
         if (img.complete) c.drawImage(img, 0, 0);
       };
     }
-    if (diagramKind === 'cavityFields') {
+    if (diagramKind === 'chokeFlange') {
+      out.canvas.description =
+        'Cross section of a waveguide running horizontally with a joint partway along. ' +
+        'An arrow indicates microwave energy flowing left to right. ' +
+        'Within the body of the joint a groove runs vertically either side of the main channel and then turns 90° left for the same length. ' +
+        'The groove is labelled C at the main channel junction, B at the 90° turn and A at the closed end.';
+    } else if (diagramKind === 'cavityFields') {
+
       out.canvas.description =
         'Cross-section of a cylindrical resonant cavity. The circular wall of the cavity is shown; no field lines or wall currents are marked.';
       out.canvas.solutionDescription =
