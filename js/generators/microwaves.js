@@ -181,7 +181,27 @@ export function generate() {
   const qBlank = isCanvasBlank(offQ);
   const sBlank = offS ? isCanvasBlank(offS) : true;
 
-  if (!qBlank || !sBlank) {
+  const kind = diagramKind ||
+    (sum === 1 ? 'cavityFields' : sum === 9 ? 'chokeFlange' : null);
+
+  let description = null;
+  let solutionDescription = null;
+  if (kind === 'cavityFields') {
+    description =
+      'Cross-section of a cylindrical resonant cavity. The circular wall of the cavity is shown; no field lines or wall currents are marked.';
+    solutionDescription =
+      'Cylindrical resonant cavity with fields shown. E fields shown as vertical arrows pointing up, with max strength in centre of cavity. ' +
+      'H fields shown as circle-and-cross on left of cavity and circle-and-dot on right, signifying circulation around cavity. ' +
+      'Max field strength at edge of cavity. Wall currents shown flowing from centre of base, radiating outwards, up the side and in to centre of the top.';
+  } else if (kind === 'chokeFlange') {
+    description =
+      'Cross section of a waveguide running horizontally with a joint partway along. ' +
+      'An arrow indicates microwave energy flowing left to right. ' +
+      'Within the body of the joint a groove runs vertically either side of the main channel and then turns 90° left for the same length. ' +
+      'The groove is labelled C at the main channel junction, B at the 90° turn and A at the closed end.';
+  }
+
+  if (!qBlank || !sBlank || kind) {
     const urlQ = offQ.toDataURL();
     const urlS = offS ? offS.toDataURL() : null;
 
@@ -190,7 +210,9 @@ export function generate() {
       height: CANVAS_H,
       withSolution: false,
       draw: null,
-      questionDraw: null
+      questionDraw: null,
+      description: null,
+      solutionDescription: null
     };
 
     if (!qBlank && sBlank) {
@@ -209,7 +231,7 @@ export function generate() {
         img.src = urlS;
         if (img.complete) c.drawImage(img, 0, 0);
       };
-    } else {
+    } else if (!qBlank && !sBlank) {
       out.canvas.withSolution = true;
       out.canvas.questionDraw = (c) => {
         const img = new Image();
@@ -224,33 +246,26 @@ export function generate() {
         if (img.complete) c.drawImage(img, 0, 0);
       };
     }
-    if (diagramKind === 'chokeFlange') {
-      out.canvas.description =
-        'Cross section of a waveguide running horizontally with a joint partway along. ' +
-        'An arrow indicates microwave energy flowing left to right. ' +
-        'Within the body of the joint a groove runs vertically either side of the main channel and then turns 90° left for the same length. ' +
-        'The groove is labelled C at the main channel junction, B at the 90° turn and A at the closed end.';
-    } else if (diagramKind === 'cavityFields') {
 
-      out.canvas.description =
-        'Cross-section of a cylindrical resonant cavity. The circular wall of the cavity is shown; no field lines or wall currents are marked.';
-      out.canvas.solutionDescription =
-        'Cylindrical resonant cavity with fields shown. E fields shown as vertical arrows pointing up, with max strength in centre of cavity. ' +
-        'H fields shown as circle-and-cross on left of cavity and circle-and-dot on right, signifying circulation around cavity. ' +
-        'Max field strength at edge of cavity. Wall currents shown flowing from centre of base, radiating outwards, up the side and in to centre of the top.';
+    if (description) {
+      out.canvas.description = description;
     } else if (!qBlank && sBlank) {
       out.canvas.description =
         'Diagram: figure supplied with this question. Use the labels, axes or layout shown when working out the answer.';
+    } else if (!qBlank) {
+      out.canvas.description =
+        'Diagram: figure as given with the question.';
+    }
+
+    if (solutionDescription) {
+      out.canvas.solutionDescription = solutionDescription;
     } else if (qBlank && !sBlank) {
       out.canvas.solutionDescription =
         'Diagram: figure shown with the solution for this question. It may include completed labels, construction or a worked schematic.';
-    } else {
-      out.canvas.description =
-        'Diagram: figure as given with the question.';
+    } else if (!sBlank) {
       out.canvas.solutionDescription =
         'Diagram (solution): completed or annotated figure for this question.';
     }
-
   }
 
   return out;

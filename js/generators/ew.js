@@ -15,6 +15,7 @@ let recentIds = [];
 export function generate() {
   recentIds = QLimitRepeats(recentIds, 22);
   const sum = recentIds[recentIds.length - 1];
+  let diagramKind = null;
 
   let notesLink = NOTES;
   let sumq = '';
@@ -91,6 +92,7 @@ export function generate() {
       suma += "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
       suma += "A: Receiver.<br>B: Threat Library.<br>C: Signal Processor.";
       ctx.drawImage(images.rwrblk, 0, 0, 600, 400);
+      diagramKind = 'rwrBlock';
       break;
     case 13:
       notesLink = "images/20200424-RadarBook7EWv1_2-APO.pdf#page=10";
@@ -181,7 +183,19 @@ export function generate() {
   const qBlank = isCanvasBlank(offQ);
   const sBlank = offS ? isCanvasBlank(offS) : true;
 
-  if (!qBlank || !sBlank) {
+  // Resolve diagram kind from flag or case number (always, even if canvas blank)
+  const kind = diagramKind || (sum === 12 ? 'rwrBlock' : null);
+
+  let description = null;
+  let solutionDescription = null;
+  if (kind === 'rwrBlock') {
+    description =
+      'Block diagram showing: Forward and rear RF Heads, each containing Starboard and Port RF Heads, with arrows to Block marked "A". ' +
+      'Block marked "A": arrow to Block marked "C". Block marked "B": 2 way arrow to Block marked "C". ' +
+      'Block marked "C": previous connections plus 2 arrows to Display and to Audio Warning Tone.';
+  }
+
+  if (!qBlank || !sBlank || kind) {
     const urlQ = offQ.toDataURL();
     const urlS = offS ? offS.toDataURL() : null;
 
@@ -190,7 +204,9 @@ export function generate() {
       height: CANVAS_H,
       withSolution: false,
       draw: null,
-      questionDraw: null
+      questionDraw: null,
+      description: null,
+      solutionDescription: null
     };
 
     if (!qBlank && sBlank) {
@@ -209,7 +225,7 @@ export function generate() {
         img.src = urlS;
         if (img.complete) c.drawImage(img, 0, 0);
       };
-    } else {
+    } else if (!qBlank && !sBlank) {
       out.canvas.withSolution = true;
       out.canvas.questionDraw = (c) => {
         const img = new Image();
@@ -224,19 +240,26 @@ export function generate() {
         if (img.complete) c.drawImage(img, 0, 0);
       };
     }
-    if (!qBlank && sBlank) {
+
+    if (description) {
+      out.canvas.description = description;
+    } else if (!qBlank && sBlank) {
       out.canvas.description =
         'Diagram: figure supplied with this question. Use the labels, axes or layout shown when working out the answer.';
+    } else if (!qBlank) {
+      out.canvas.description =
+        'Diagram: figure as given with the question.';
+    }
+
+    if (solutionDescription) {
+      out.canvas.solutionDescription = solutionDescription;
     } else if (qBlank && !sBlank) {
       out.canvas.solutionDescription =
         'Diagram: figure shown with the solution for this question. It may include completed labels, construction or a worked schematic.';
-    } else {
-      out.canvas.description =
-        'Diagram: figure as given with the question.';
+    } else if (!sBlank) {
       out.canvas.solutionDescription =
         'Diagram (solution): completed or annotated figure for this question.';
     }
-
   }
 
   return out;

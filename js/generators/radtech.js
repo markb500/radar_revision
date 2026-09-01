@@ -15,6 +15,7 @@ let recentIds = [];
 export function generate() {
   recentIds = QLimitRepeats(recentIds, 33);
   const sum = recentIds[recentIds.length - 1];
+  let diagramKind = null;
 
   let notesLink = NOTES;
   let sumq = '';
@@ -56,6 +57,7 @@ export function generate() {
               "c. The Local Oscillator.<br>" +
               "d. A Travelling Wave Tube.";
       ctx.drawImage(images.famopablk, 0, 0, 600, 400);
+      diagramKind = 'faMopa';
       break;
     case 5:
       notesLink = "images/20200422-RadarBook4RadTechv1_2-APO.pdf#page=13";
@@ -196,6 +198,7 @@ export function generate() {
       suma += "- Sets the PRF and triggers the transmitter<br>- Provides a stable local oscillator (STALO) frequency to the Mixer<br>" + 
                 "- Receives control signals from the Radar Data Processor.";
       ctx.drawImage(images.basicpulsedopblk, 0, 0, 600, 400);
+      diagramKind = 'pulsedDoppler';
       break;
     case 31:
       notesLink = "images/20200422-RadarBook4RadTechv1_2-APO.pdf#page=26";
@@ -203,6 +206,7 @@ export function generate() {
       suma += "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
       suma += "A Master Oscillator Power Amplifier (MOPA) transmitter.";
       ctx.drawImage(images.basicpulsedopblk, 0, 0, 600, 400);
+      diagramKind = 'pulsedDoppler';
       break;
     case 32:
       notesLink = "images/20200422-RadarBook4RadTechv1_2-APO.pdf#page=26";
@@ -211,6 +215,7 @@ export function generate() {
       suma += "A digital signal processor undertaking filtering and data manipulation and processing of the received pulses together with " +
               "their 'Doppler' shift signal into a suitable format for display or use by the Radar Data Processor.";
       ctx.drawImage(images.basicpulsedopblk, 0, 0, 600, 400);
+      diagramKind = 'pulsedDoppler';
       break;
     case 33:
       notesLink = "images/20200422-RadarBook4RadTechv1_2-APO.pdf#page=26";
@@ -219,6 +224,7 @@ export function generate() {
       suma += "The Radar Data Processor performs the control functions for the Radar, interacts with the aircraft data architecture for use " +
               "with other systems and sensors and controls the antenna/beam position.";
       ctx.drawImage(images.basicpulsedopblk, 0, 0, 600, 400);
+      diagramKind = 'pulsedDoppler';
       break;
   
   }
@@ -232,7 +238,27 @@ export function generate() {
   const qBlank = isCanvasBlank(offQ);
   const sBlank = offS ? isCanvasBlank(offS) : true;
 
-  if (!qBlank || !sBlank) {
+  const kind = diagramKind || null;
+
+  let description = null;
+  let solutionDescription = null;
+  if (kind === 'faMopa') {
+    description =
+      'Block diagram showing: MTU: 2 arrows to Random Voltage Generator and Master Oscillator. ' +
+      'Random Voltage Generator: arrow to Master Oscillator. ' +
+      'Master Oscillator: 2 arrows to Up Mixer and Down Mixer. Local Oscillator: arrow to Up Mixer. ' +
+      'Up Mixer: 3 arrows from Local Oscillator, from Master Oscillator and to Tx Amp. ' +
+      'Tx Amp: arrow to T/R Switch/Aerial. T/R Switch/Aerial: arrow to Down Mixer.';
+  } else if (kind === 'pulsedDoppler') {
+    description =
+      'Block diagram showing: MTU/Exciter: 2 arrows to Transmitter and Mixer & Receiver. ' +
+      'Transmitter: arrow to T/R Switch/Aerial. T/R Switch/Aerial: arrow to Mixer & Receiver. ' +
+      'Mixer & Receiver: 2 arrows from MTU/Exciter and to Signal Processor. ' +
+      'Signal Processor: 2 arrows to Display and 2 way to Radar Data Processor. ' +
+      'Radar Data Processor: 2 way arrow to Aircraft Data Bus and dotted line to Aerial and dotted line to MTU/Exciter.';
+  }
+
+  if (!qBlank || !sBlank || kind) {
     const urlQ = offQ.toDataURL();
     const urlS = offS ? offS.toDataURL() : null;
 
@@ -241,7 +267,9 @@ export function generate() {
       height: CANVAS_H,
       withSolution: false,
       draw: null,
-      questionDraw: null
+      questionDraw: null,
+      description: null,
+      solutionDescription: null
     };
 
     if (!qBlank && sBlank) {
@@ -260,7 +288,7 @@ export function generate() {
         img.src = urlS;
         if (img.complete) c.drawImage(img, 0, 0);
       };
-    } else {
+    } else if (!qBlank && !sBlank) {
       out.canvas.withSolution = true;
       out.canvas.questionDraw = (c) => {
         const img = new Image();
@@ -275,19 +303,26 @@ export function generate() {
         if (img.complete) c.drawImage(img, 0, 0);
       };
     }
-    if (!qBlank && sBlank) {
+
+    if (description) {
+      out.canvas.description = description;
+    } else if (!qBlank && sBlank) {
       out.canvas.description =
         'Diagram: figure supplied with this question. Use the labels, axes or layout shown when working out the answer.';
+    } else if (!qBlank) {
+      out.canvas.description =
+        'Diagram: figure as given with the question.';
+    }
+
+    if (solutionDescription) {
+      out.canvas.solutionDescription = solutionDescription;
     } else if (qBlank && !sBlank) {
       out.canvas.solutionDescription =
         'Diagram: figure shown with the solution for this question. It may include completed labels, construction or a worked schematic.';
-    } else {
-      out.canvas.description =
-        'Diagram: figure as given with the question.';
+    } else if (!sBlank) {
       out.canvas.solutionDescription =
         'Diagram (solution): completed or annotated figure for this question.';
     }
-
   }
 
   return out;

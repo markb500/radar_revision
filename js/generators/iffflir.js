@@ -15,6 +15,7 @@ let recentIds = [];
 export function generate() {
   recentIds = QLimitRepeats(recentIds, 14);
   const sum = recentIds[recentIds.length - 1];
+  let diagramKind = null;
 
   let notesLink = NOTES;
   let sumq = '';
@@ -38,6 +39,7 @@ export function generate() {
       suma += "The Transponder contains the main transmitter and receiver modules. The incoming interrogation pulses are decoded by the receiver " +
               "and the coded reply set up on the control panel is triggered and sent back by the transmitter module.";
       ctx.drawImage(images.iffssrblk, 0, 0, 600, 400);
+      diagramKind = 'iffBlock';
       break;
     case 2:
       notesLink = "images/20240324-RadarBook5IFF_FLIRCI_v1_6-APO.pdf#page=11";
@@ -46,6 +48,7 @@ export function generate() {
       suma += "On aircraft fitted with ejection seats, when an ejection occurs an electrical connection on the seat is disconnected which " +
               "activates the transponder in emergency mode.";
       ctx.drawImage(images.iffssrblk, 0, 0, 600, 400);
+      diagramKind = 'iffBlock';
       break;
     case 3:
       notesLink = "images/20240324-RadarBook5IFF_FLIRCI_v1_6-APO.pdf#page=11";
@@ -53,12 +56,14 @@ export function generate() {
       suma += "<br><br><br><br><br><br><br><br><br><br><br><br>";
       suma += "The Air Data Computer supplies height information for Altitude Mode C.";
       ctx.drawImage(images.iffssrblk, 0, 0, 600, 400);
+      diagramKind = 'iffBlock';
       break;
     case 4:
       notesLink = "images/20240324-RadarBook5IFF_FLIRCI_v1_6-APO.pdf#page=7";
       sumq += "Fill in the blanks in the Modes of Interrogation table below."
       ctx.drawImage(images.iffssrmodesq, 0, 0, 600, 400);
       ctx2.drawImage(images.iffssrmodesa, 0, 0, 600, 400);
+      diagramKind = 'iffModes';
       break;
     case 5:
       notesLink = "images/20240324-RadarBook5IFF_FLIRCI_v1_6-APO.pdf#page=10";
@@ -136,6 +141,7 @@ export function generate() {
               "The optical system collects the thermal IR radiation and focuses the image onto one or more IR detectors in a " +
               "similar way to a standard light camera.";
       ctx.drawImage(images.flirblk, 0, 0, 600, 400);
+      diagramKind = 'flirBlock';
       break;
     case 15:
       notesLink = "images/20240324-RadarBook5IFF_FLIRCI_v1_6-APO.pdf#page=18";
@@ -160,7 +166,36 @@ export function generate() {
   const qBlank = isCanvasBlank(offQ);
   const sBlank = offS ? isCanvasBlank(offS) : true;
 
-  if (!qBlank || !sBlank) {
+  const kind = diagramKind ||
+    ([1, 2, 3].includes(sum) ? 'iffBlock' :
+     sum === 4 ? 'iffModes' :
+     sum === 14 ? 'flirBlock' : null);
+
+  let description = null;
+  let solutionDescription = null;
+  if (kind === 'iffBlock') {
+    description =
+      'Block diagram showing: Aerial Switching Unit with Upper & Lower Aerial: 2 way arrow to Transponder. ' +
+      'Transponder: 3 arrows from Air Data Computer, from Ejection Seat Relay and 2 way arrow to Control Unit.';
+  } else if (kind === 'iffModes') {
+    description =
+      'Table with 3 columns and 8 rows. Top row has column headings Mode, Pulse Spacing and Use. ' +
+      'In Mode column, rows read 1, blank, 3/A, C, 4, 5, S. ' +
+      'In Pulse Spacing column, rows read 3µs, 5 µs, blank, 21 µs, N/A, blank, RANDOM. ' +
+      'In Use column, rows read blank, Military Ident (secure), Military/Civil Ident, blank, blank, Military Secure, blank.';
+    solutionDescription =
+      'Blank rows of table completed as follows: Mode column, row 3, 2. Pulse Spacing column, row 4, 8 µs, row 7, Crypto. ' +
+      'Use column, row 2, Military Ident, row 5, Automatic Altitude, row 6, No longer used, row 8, Traffic Collision Avoidance System.';
+  } else if (kind === 'flirBlock') {
+    description =
+      'Block diagram showing: Control Panel: 2 arrows to FLIR Sensor Head Optics and Cooling Engine. ' +
+      'Cooling Engine: arrow to Shutter & Window Assembly. Shutter & Window Assembly: 2 way arrow to FLIR Sensor Head Optics. ' +
+      'FLIR Sensor Head Optics: as previous and 2 way arrow to FLIR Electronics Unit. ' +
+      'Mission & Weapons Computer: arrow to FLIR Electronics Unit. ' +
+      'FLIR Electronics Unit: as previous and 2 arrows to Video recording System and MFD/HUD Displays.';
+  }
+
+  if (!qBlank || !sBlank || kind) {
     const urlQ = offQ.toDataURL();
     const urlS = offS ? offS.toDataURL() : null;
 
@@ -169,7 +204,9 @@ export function generate() {
       height: CANVAS_H,
       withSolution: false,
       draw: null,
-      questionDraw: null
+      questionDraw: null,
+      description: null,
+      solutionDescription: null
     };
 
     if (!qBlank && sBlank) {
@@ -188,7 +225,7 @@ export function generate() {
         img.src = urlS;
         if (img.complete) c.drawImage(img, 0, 0);
       };
-    } else {
+    } else if (!qBlank && !sBlank) {
       out.canvas.withSolution = true;
       out.canvas.questionDraw = (c) => {
         const img = new Image();
@@ -203,19 +240,26 @@ export function generate() {
         if (img.complete) c.drawImage(img, 0, 0);
       };
     }
-    if (!qBlank && sBlank) {
+
+    if (description) {
+      out.canvas.description = description;
+    } else if (!qBlank && sBlank) {
       out.canvas.description =
         'Diagram: figure supplied with this question. Use the labels, axes or layout shown when working out the answer.';
+    } else if (!qBlank) {
+      out.canvas.description =
+        'Diagram: figure as given with the question.';
+    }
+
+    if (solutionDescription) {
+      out.canvas.solutionDescription = solutionDescription;
     } else if (qBlank && !sBlank) {
       out.canvas.solutionDescription =
         'Diagram: figure shown with the solution for this question. It may include completed labels, construction or a worked schematic.';
-    } else {
-      out.canvas.description =
-        'Diagram: figure as given with the question.';
+    } else if (!sBlank) {
       out.canvas.solutionDescription =
         'Diagram (solution): completed or annotated figure for this question.';
     }
-
   }
 
   return out;

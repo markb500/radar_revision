@@ -15,6 +15,7 @@ let recentIds = [];
 export function generate() {
   recentIds = QLimitRepeats(recentIds, 21);
   const sum = recentIds[recentIds.length - 1];
+  let diagramKind = null;
 
   let notesLink = NOTES;
   let sumq = '';
@@ -43,6 +44,7 @@ export function generate() {
               "b. A Magnetron.<br>" + 
               "c. A Pulse Forming Network.";
       ctx.drawImage(images.hpotxblk, 0, 0, 500, 300);
+      diagramKind = 'hpoTx';
       break;
     case 2:
       notesLink = "images/20200422-RadarBk3TxRx_v1_3-APO.pdf#page=8";
@@ -86,6 +88,7 @@ export function generate() {
               "b. Pulse modulation and amplification of the low power CW microwave frequency.<br>" + 
               "c. Raises the output level to that required by the system.";
       ctx.drawImage(images.basicmopablk, 0, 0, 500, 300);
+      diagramKind = 'mopaTx';
       break;
     case 6:
       notesLink = "images/20200422-RadarBk3TxRx_v1_3-APO.pdf#page=11";
@@ -103,6 +106,7 @@ export function generate() {
       suma += "<br><br><br><br><br><br><br>";
       suma += "The AFC.";
       ctx.drawImage(images.superhetrxblk, 0, 0, 500, 300);
+      diagramKind = 'superhetRx';
       break;
     case 9:
       notesLink = "images/20200422-RadarBk3TxRx_v1_3-APO.pdf#page=13";
@@ -110,6 +114,7 @@ export function generate() {
       suma += "<br><br><br><br><br><br><br>";
       suma += "The IF Amplifier.";
       ctx.drawImage(images.superhetrxblk, 0, 0, 500, 300);
+      diagramKind = 'superhetRx';
       break;
     case 10:
       notesLink = "images/20200422-RadarBk3TxRx_v1_3-APO.pdf#page=13";
@@ -117,6 +122,7 @@ export function generate() {
       suma += "<br><br><br><br><br><br><br>";
       suma += "The Local Oscillator.";
       ctx.drawImage(images.superhetrxblk, 0, 0, 500, 300);
+      diagramKind = 'superhetRx';
       break;
     case 11:
       notesLink = "images/20200422-RadarBk3TxRx_v1_3-APO.pdf#page=13";
@@ -124,6 +130,7 @@ export function generate() {
       suma += "<br><br><br><br><br><br><br>";
       suma += "The Video Detector.";
       ctx.drawImage(images.superhetrxblk, 0, 0, 500, 300);
+      diagramKind = 'superhetRx';
       break;
     case 12:
       notesLink = "images/20200422-RadarBk3TxRx_v1_3-APO.pdf#page=13";
@@ -131,6 +138,7 @@ export function generate() {
       suma += "<br><br><br><br><br><br><br>";
       suma += "The RF Amplifier.";
       ctx.drawImage(images.superhetrxblk, 0, 0, 500, 300);
+      diagramKind = 'superhetRx';
       break;
     case 13:
       notesLink = "images/20200422-RadarBk3TxRx_v1_3-APO.pdf#page=15";
@@ -153,6 +161,7 @@ export function generate() {
       suma += "<br><br><br><br><br><br><br><br>";
       suma += "The AFC causes the local oscillator frequency to increase by 50 KHz.";
       ctx.drawImage(images.superhetrxblk, 0, 0, 500, 300);
+      diagramKind = 'superhetRx';
       break;
     case 17:
       notesLink = "images/20200422-RadarBk3TxRx_v1_3-APO.pdf#page=14";
@@ -160,6 +169,7 @@ export function generate() {
       suma += "<br><br><br><br><br><br><br><br>";
       suma += "The AFC causes the local oscillator frequency to decrease by 20 KHz.";
       ctx.drawImage(images.superhetrxblk, 0, 0, 500, 300);
+      diagramKind = 'superhetRx';
       break;
     case 18:
       notesLink = "images/20200422-RadarBk3TxRx_v1_3-APO.pdf#page=19";
@@ -171,6 +181,7 @@ export function generate() {
       sumq += "For each of the received pulses shown, draw the effect that a Fast Time Constant (FTC) circuit would have.";
       ctx.drawImage(images.ftcpulsesq, 0, 0, 600, 400);
       ctx2.drawImage(images.ftcpulsesa, 0, 0, 600, 400);
+      diagramKind = 'ftcPulses';
       break;
     case 20:
       notesLink = "images/20200422-RadarBk3TxRx_v1_3-APO.pdf#page=21";
@@ -198,7 +209,34 @@ export function generate() {
   const qBlank = isCanvasBlank(offQ);
   const sBlank = offS ? isCanvasBlank(offS) : true;
 
-  if (!qBlank || !sBlank) {
+  const kind = diagramKind || null;
+
+  let description = null;
+  let solutionDescription = null;
+  if (kind === 'superhetRx') {
+    description =
+      'Block diagram showing: Tx: 2 arrows to T/R Switch/Aerial and AFC & LO loop. ' +
+      'T/R Switch/Aerial: arrow to RF Amp. RF Amp: arrow to Mixer. ' +
+      'Mixer: 2 arrows from AFC & LO loop and to IF Amp. IF Amp: arrow to Video Detector. ' +
+      'Video Detector: arrow to Video Amp. Video Amp: arrow to Display.';
+  } else if (kind === 'mopaTx') {
+    description =
+      'Block diagram showing: Master Oscillator: arrow to Driver Amp. MTU: arrow to Modulator. ' +
+      'Modulator: arrow to Driver Amp. Driver Amp: 3 arrows from Master Oscillator and from Modulator and to Power Amp. ' +
+      'Power Amp: arrow to output.';
+  } else if (kind === 'hpoTx') {
+    description =
+      'Block diagram showing: MTU: arrow to High Power Modulator. High Power Modulator: arrow to RF Oscillator/Aerial.';
+  } else if (kind === 'ftcPulses') {
+    description =
+      'Two square pulses of equal amplitude shown side by side. The pulse on left is approx. 10 times the width of the pulse on the right.';
+    solutionDescription =
+      'Diagram showing FTC pulses overlayed on original 2 pulses. On wide pulse, FTC pulse follows leading edge rise but quickly discharges back to zero. ' +
+      'At trailing edge, FTC pulse falls below zero before quickly discharging back to zero. ' +
+      'On narrow pulse, overlay shows pulse follows leading edge rise and begins to discharge toward zero but then quicker lagging edge arrival results in fall below zero before overlay pulse quickly discharges back to zero.';
+  }
+
+  if (!qBlank || !sBlank || kind) {
     const urlQ = offQ.toDataURL();
     const urlS = offS ? offS.toDataURL() : null;
 
@@ -207,7 +245,9 @@ export function generate() {
       height: CANVAS_H,
       withSolution: false,
       draw: null,
-      questionDraw: null
+      questionDraw: null,
+      description: null,
+      solutionDescription: null
     };
 
     if (!qBlank && sBlank) {
@@ -226,7 +266,7 @@ export function generate() {
         img.src = urlS;
         if (img.complete) c.drawImage(img, 0, 0);
       };
-    } else {
+    } else if (!qBlank && !sBlank) {
       out.canvas.withSolution = true;
       out.canvas.questionDraw = (c) => {
         const img = new Image();
@@ -241,19 +281,26 @@ export function generate() {
         if (img.complete) c.drawImage(img, 0, 0);
       };
     }
-    if (!qBlank && sBlank) {
+
+    if (description) {
+      out.canvas.description = description;
+    } else if (!qBlank && sBlank) {
       out.canvas.description =
         'Diagram: figure supplied with this question. Use the labels, axes or layout shown when working out the answer.';
+    } else if (!qBlank) {
+      out.canvas.description =
+        'Diagram: figure as given with the question.';
+    }
+
+    if (solutionDescription) {
+      out.canvas.solutionDescription = solutionDescription;
     } else if (qBlank && !sBlank) {
       out.canvas.solutionDescription =
         'Diagram: figure shown with the solution for this question. It may include completed labels, construction or a worked schematic.';
-    } else {
-      out.canvas.description =
-        'Diagram: figure as given with the question.';
+    } else if (!sBlank) {
       out.canvas.solutionDescription =
         'Diagram (solution): completed or annotated figure for this question.';
     }
-
   }
 
   return out;

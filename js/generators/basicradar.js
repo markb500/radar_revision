@@ -149,14 +149,14 @@ export function generate() {
             suma += "A.&nbsp;&nbsp;MTU<br>B.&nbsp;&nbsp;Modulator<br>C.&nbsp;&nbsp;RF Oscillator<br>D.&nbsp;&nbsp;T/R Switch<br>" +
                         "E.&nbsp;&nbsp;&nbsp;Aerial<br>F.&nbsp;&nbsp;&nbsp;Receiver<br>G.&nbsp;&nbsp;Display";
             ctx.drawImage(images.basicradblklblq, 0, 0, 500, 300);
-            diagramKind = 'pulsedTest';
+            diagramKind = 'pulsedLbl';
             break;
         case 14:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=16";
             sumq += "With reference to the Basic Pulsed Radar Block Diagram shown, sketch the waveforms found at test points A - C.";
             ctx.drawImage(images.basicradblkwaveq, 0, 0, 500, 300);
-            diagramKind = 'pulsedTest';  // same diagram family: block with test points A–C
             ctx2.drawImage(images.basicradblkwavea, 0, 0, 500, 300);
+            diagramKind = 'pulsedWaveforms';
             break;
         case 15:
             notesLink = "images/20200323-RadarBk1BasicRadCIv1_5-APO.pdf#page=10";
@@ -459,20 +459,77 @@ export function generate() {
   const qBlank = isCanvasBlank(offQ);
   const sBlank = isCanvasBlank(offS);
 
-  if (!qBlank || !sBlank) {
+  const kind = diagramKind;
+  const DESC = {
+    pulsed:
+      'Block diagram showing MTU: 2 arrows to Modulator and Display. ' +
+      'Modulator: arrow to RF Oscillator. RF Oscillator: arrow to T/R Switch. ' +
+      'T/R Switch: 2-way arrow to Aerial and arrow to Receiver. Receiver: arrow to Display. ' +
+      'Also a dotted line linking Aerial and Display.',
+    pulsedTest:
+      'Block diagram showing MTU: 2 arrows to Modulator and Display. ' +
+      'Modulator: arrow to RF Oscillator. RF Oscillator: arrow to T/R Switch. ' +
+      'T/R Switch: 2-way arrow to Aerial and arrow to Receiver. Receiver: arrow to Display. ' +
+      'Also a dotted line links Aerial and Display. ' +
+      '3 test points: A between MTU and Modulator, B between Modulator and RF Oscillator, ' +
+      'C between RF Oscillator and T/R Switch.',
+    pulsedWaveforms:
+      'Block diagram showing MTU: 2 arrows to Modulator and Display. ' +
+      'Modulator: arrow to RF Oscillator. RF Oscillator: arrow to T/R Switch. ' +
+      'T/R Switch: 2-way arrow to Aerial and arrow to Receiver. Receiver: arrow to Display. ' +
+      'Also a dotted line links Aerial and Display. ' +
+      '3 test points: A between MTU and Modulator, B between Modulator and RF Oscillator, ' +
+      'C between RF Oscillator and T/R Switch.',
+    pulsedLbl:
+      'Block diagram showing A: 2 arrows to B and G. B: arrow to C. C: arrow to D. D: 2 way arrow to E and arrow to F. F: arrow to G. Also dotted line linking E and G.',
+    pulsedWave:
+      'Block diagram showing MTU: 2 arrows to Modulator and Display. ' +
+      'Modulator: arrow to RF Oscillator. RF Oscillator: arrow to T/R Switch. ' +
+      'T/R Switch: 2-way arrow to Aerial and arrow to Receiver. Receiver: arrow to Display. ' +
+      'Also a dotted line links Aerial and Display. ' +
+      '3 test points: A between MTU and Modulator, B between Modulator and RF Oscillator, ' +
+      'C between RF Oscillator and T/R Switch.',
+    cw:
+      'Block diagram showing CW Transmitter: 2 arrows to Mixer and TX Aerial. ' +
+      'Mixer: 2 arrows to Receiver and from Rx Aerial. Receiver: arrow to Display.',
+    fmcw:
+      'Block diagram showing Frequency Modulator: arrow to CW Transmitter. ' +
+      'CW Transmitter: 2 arrows to Mixer and TX Aerial. ' +
+      'Mixer: 2 arrows to Receiver and from Rx Aerial. Receiver: arrow to Display. ' +
+      'Frequency Modulator and CW Transmitter enclosed in 1 dotted-line box. ' +
+      'Mixer and Receiver also in 1 dotted-line box.',
+    jetsClosing:
+      'Plan view of 2 aircraft flying toward each other. ' +
+      'Aircraft X on the left has velocity of ' + jetVx + ' kts. ' +
+      'Aircraft Y on the right has velocity of ' + jetVy + ' kts.',
+    jetsOpening:
+      'Plan view of 2 aircraft, both flying in the same direction (to the left). ' +
+      'Aircraft X is leading with velocity of ' + jetVx + ' kts. ' +
+      'Aircraft Y is trailing with velocity of ' + jetVy + ' kts.'
+  };
+  const description = kind && DESC[kind] ? DESC[kind] : null;
+  let solutionDescription = null;
+  if (kind === 'pulsedWaveforms') {
+    solutionDescription =
+      'Waveforms shown next to test points: A. Short positive going trigger pulse. ' +
+      'B. Positive going square pulse. C. Burst of RF with width equal to waveform B.';
+  }
+
+  if (!qBlank || !sBlank || kind) {
     const urlQ = offQ.toDataURL();
-    const urlS = offS.toDataURL();
+    const urlS = offS ? offS.toDataURL() : null;
 
     out.canvas = {
       width: CANVAS_W,
       height: CANVAS_H,
       withSolution: false,
       draw: null,
-      questionDraw: null
+      questionDraw: null,
+      description: null,
+      solutionDescription: null
     };
 
     if (!qBlank && sBlank) {
-      // Diagram with the question only
       out.canvas.withSolution = false;
       out.canvas.draw = (c) => {
         const img = new Image();
@@ -481,7 +538,6 @@ export function generate() {
         if (img.complete) c.drawImage(img, 0, 0);
       };
     } else if (qBlank && !sBlank) {
-      // Diagram with the solution only
       out.canvas.withSolution = true;
       out.canvas.draw = (c) => {
         const img = new Image();
@@ -489,8 +545,7 @@ export function generate() {
         img.src = urlS;
         if (img.complete) c.drawImage(img, 0, 0);
       };
-    } else {
-      // Both: question diagram + solution overlay (e.g. waveforms)
+    } else if (!qBlank && !sBlank) {
       out.canvas.withSolution = true;
       out.canvas.questionDraw = (c) => {
         const img = new Image();
@@ -505,62 +560,26 @@ export function generate() {
         if (img.complete) c.drawImage(img, 0, 0);
       };
     }
-    // Descriptions from Radar descriptions pack (layout + live jet speeds)
-    const DESC = {
-      pulsed:
-        'Block diagram showing MTU: 2 arrows to Modulator and Display. ' +
-        'Modulator: arrow to RF Oscillator. RF Oscillator: arrow to T/R Switch. ' +
-        'T/R Switch: 2-way arrow to Aerial and arrow to Receiver. Receiver: arrow to Display. ' +
-        'Also a dotted line linking Aerial and Display.',
-      pulsedTest:
-        'Block diagram showing MTU: 2 arrows to Modulator and Display. ' +
-        'Modulator: arrow to RF Oscillator. RF Oscillator: arrow to T/R Switch. ' +
-        'T/R Switch: 2-way arrow to Aerial and arrow to Receiver. Receiver: arrow to Display. ' +
-        'Also a dotted line links Aerial and Display. ' +
-        '3 test points: A between MTU and Modulator, B between Modulator and RF Oscillator, ' +
-        'C between RF Oscillator and T/R Switch.',
-      pulsedWave:
-        // Kept for compatibility; wave questions now use pulsedTest
-        'Block diagram showing MTU: 2 arrows to Modulator and Display. ' +
-        'Modulator: arrow to RF Oscillator. RF Oscillator: arrow to T/R Switch. ' +
-        'T/R Switch: 2-way arrow to Aerial and arrow to Receiver. Receiver: arrow to Display. ' +
-        'Also a dotted line links Aerial and Display. ' +
-        '3 test points: A between MTU and Modulator, B between Modulator and RF Oscillator, ' +
-        'C between RF Oscillator and T/R Switch.',
-      cw:
-        'Block diagram showing CW Transmitter: 2 arrows to Mixer and TX Aerial. ' +
-        'Mixer: 2 arrows to Receiver and from Rx Aerial. Receiver: arrow to Display.',
-      fmcw:
-        'Block diagram showing Frequency Modulator: arrow to CW Transmitter. ' +
-        'CW Transmitter: 2 arrows to Mixer and TX Aerial. ' +
-        'Mixer: 2 arrows to Receiver and from Rx Aerial. Receiver: arrow to Display. ' +
-        'Frequency Modulator and CW Transmitter enclosed in 1 dotted-line box. ' +
-        'Mixer and Receiver also in 1 dotted-line box.',
-      jetsClosing:
-        'Plan view of 2 aircraft flying toward each other. ' +
-        'Aircraft X on the left has velocity of ' + jetVx + ' kts. ' +
-        'Aircraft Y on the right has velocity of ' + jetVy + ' kts.',
-      jetsOpening:
-        'Plan view of 2 aircraft, both flying in the same direction (to the left). ' +
-        'Aircraft X is leading with velocity of ' + jetVx + ' kts. ' +
-        'Aircraft Y is trailing with velocity of ' + jetVy + ' kts.'
-    };
 
-    const specific = diagramKind && DESC[diagramKind] ? DESC[diagramKind] : null;
-
-    if (!qBlank && sBlank) {
-      out.canvas.description = specific ||
+    if (description) {
+      out.canvas.description = description;
+    } else if (!qBlank && sBlank) {
+      out.canvas.description =
         'Diagram: figure supplied with this question. Use the labels, axes or layout shown when working out the answer.';
-    } else if (qBlank && !sBlank) {
-      out.canvas.solutionDescription = specific ||
-        'Diagram: figure shown with the solution for this question.';
-    } else {
-      out.canvas.description = specific ||
+    } else if (!qBlank) {
+      out.canvas.description =
         'Diagram: figure as given with the question.';
-      out.canvas.solutionDescription = specific ||
-        'Diagram (solution): completed or annotated figure for this question.';
     }
 
+    if (solutionDescription) {
+      out.canvas.solutionDescription = solutionDescription;
+    } else if (qBlank && !sBlank) {
+      out.canvas.solutionDescription =
+        'Diagram: figure shown with the solution for this question. It may include completed labels, construction or a worked schematic.';
+    } else if (!sBlank) {
+      out.canvas.solutionDescription =
+        'Diagram (solution): completed or annotated figure for this question.';
+    }
   }
 
   return out;

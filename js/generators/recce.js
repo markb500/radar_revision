@@ -15,6 +15,7 @@ let recentIds = [];
 export function generate() {
   recentIds = QLimitRepeats(recentIds, 11);
   const sum = recentIds[recentIds.length - 1];
+  let diagramKind = null;
 
   let notesLink = NOTES;
   let sumq = '';
@@ -52,6 +53,7 @@ export function generate() {
       sumq += "From the following list, select the types of image the Reconnaissance Airborne Pod for Tornado (RAPTOR) can provide:";
       ctx.drawImage(images.raptorimagetypesq, 0, 0, 600, 400);
       ctx2.drawImage(images.raptorimagetypesa, 0, 0, 600, 400);
+      diagramKind = 'raptorImageTypes';
       break;
     case 4:
       notesLink = "images/20200422-RadarBook6ACReconSysCIv1_3-APO.pdf#page=11";
@@ -133,7 +135,21 @@ export function generate() {
   const qBlank = isCanvasBlank(offQ);
   const sBlank = offS ? isCanvasBlank(offS) : true;
 
-  if (!qBlank || !sBlank) {
+  // Resolve diagram kind from flag or case number (always, even if canvas blank)
+  const kind = diagramKind || (sum === 3 ? 'raptorImageTypes' : null);
+
+  let description = null;
+  let solutionDescription = null;
+  if (kind === 'raptorImageTypes') {
+    description =
+      'A table with 2 columns and 6 rows. 1st column rows read Short Range Infra Red, Short Range Ultra Violet, Long Range Infra Red, ' +
+      'Long Range Ultra Violet & Infra Red, Short Range Visible, Long Range Visible. 2nd column rows are blank.';
+    solutionDescription =
+      'The table now has, in the 2nd column, ticks against Short Range Infra red, Long Range Infra Red, Short Range Visible ' +
+      'and Long Range Visible.';
+  }
+
+  if (!qBlank || !sBlank || kind) {
     const urlQ = offQ.toDataURL();
     const urlS = offS ? offS.toDataURL() : null;
 
@@ -142,7 +158,9 @@ export function generate() {
       height: CANVAS_H,
       withSolution: false,
       draw: null,
-      questionDraw: null
+      questionDraw: null,
+      description: null,
+      solutionDescription: null
     };
 
     if (!qBlank && sBlank) {
@@ -161,7 +179,7 @@ export function generate() {
         img.src = urlS;
         if (img.complete) c.drawImage(img, 0, 0);
       };
-    } else {
+    } else if (!qBlank && !sBlank) {
       out.canvas.withSolution = true;
       out.canvas.questionDraw = (c) => {
         const img = new Image();
@@ -176,19 +194,26 @@ export function generate() {
         if (img.complete) c.drawImage(img, 0, 0);
       };
     }
-    if (!qBlank && sBlank) {
+
+    if (description) {
+      out.canvas.description = description;
+    } else if (!qBlank && sBlank) {
       out.canvas.description =
         'Diagram: figure supplied with this question. Use the labels, axes or layout shown when working out the answer.';
+    } else if (!qBlank) {
+      out.canvas.description =
+        'Diagram: figure as given with the question.';
+    }
+
+    if (solutionDescription) {
+      out.canvas.solutionDescription = solutionDescription;
     } else if (qBlank && !sBlank) {
       out.canvas.solutionDescription =
         'Diagram: figure shown with the solution for this question. It may include completed labels, construction or a worked schematic.';
-    } else {
-      out.canvas.description =
-        'Diagram: figure as given with the question.';
+    } else if (!sBlank) {
       out.canvas.solutionDescription =
         'Diagram (solution): completed or annotated figure for this question.';
     }
-
   }
 
   return out;
